@@ -76,6 +76,8 @@ String sesName = (String)session.getAttribute("sessionName");
 					<div class="bg-white py-2 collapse-inner rounded">
 							<a class="collapse-item" href="BillController?action=listBill">Bill List</a> 
 							<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
+							<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
+							<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
 					</div>
 				</div></li>
 

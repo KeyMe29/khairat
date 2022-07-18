@@ -52,28 +52,32 @@ public class LoginController extends HttpServlet {
 			user = UserDAO.login(user);
 			//set user session if user is valid
 			if(user.isValid()){
-				session = request.getSession(true);
-				session.setAttribute("sessionId", user.getUserid());
-				System.out.println(user.getUserid());
-				session.setAttribute("sessionEmail", user.getEmail());
-				session.setAttribute("sessionRole", user.getUser_type()); 
-				
-				if(user.getUser_type().equalsIgnoreCase("admin")) {
-					request.setAttribute("user", UserDAO.getUserByEmail(user.getEmail()));
-					request.setAttribute("staff", StaffDAO.getStaffById(user.getUserid())); 
-					Staff staff = StaffDAO.getStaffById(user.getUserid());
-					session.setAttribute("sessionName", staff.getName());
-					RequestDispatcher view = request.getRequestDispatcher("admindashboard.jsp");
-					view.forward(request, response);	
+				if(user.isActiveStatus()) {
+					session = request.getSession(true);
+					session.setAttribute("sessionId", user.getUserid());
+					System.out.println(user.getUserid());
+					session.setAttribute("sessionName", user.getName());
+					session.setAttribute("sessionEmail", user.getEmail());
+					session.setAttribute("sessionRole", user.getUser_type()); 
+
+					if(user.getUser_type().equalsIgnoreCase("admin")) {
+						request.setAttribute("user", UserDAO.getUserByEmail(user.getEmail()));
+						request.setAttribute("staff", StaffDAO.getStaffById(user.getUserid())); 
+						RequestDispatcher view = request.getRequestDispatcher("admindashboard.jsp");
+						view.forward(request, response);	
+					}
+					else {
+						Kariah kariah = KariahDAO.getKariahById(user.getUserid());
+						request.setAttribute("user", UserDAO.getUserByEmail(user.getEmail()));	
+						request.setAttribute("kariah", KariahDAO.getKariahById(user.getUserid()));
+						request.setAttribute("mosque", MosqueDAO.getmosqueById(user.getUserid()));
+						RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
+						view.forward(request, response);	
+					}	
 				}
 				else {
-					Kariah kariah = KariahDAO.getKariahById(user.getUserid());
-					session.setAttribute("sessionName", kariah.getUsername());
-					request.setAttribute("user", UserDAO.getUserByEmail(user.getEmail()));	
-					request.setAttribute("kariah", KariahDAO.getKariahById(user.getUserid()));
-					RequestDispatcher view = request.getRequestDispatcher("homepage.jsp");
-					view.forward(request, response);	
-				}											
+					response.sendRedirect("unverifiedUser.jsp");
+				}
 			}
 			//redirect to invalidLoggin.jsp if user is not valid
 			else{

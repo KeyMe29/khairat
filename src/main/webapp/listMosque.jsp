@@ -9,14 +9,17 @@ response.setDateHeader("Expires", 0);
 if (session.getAttribute("sessionEmail") == null)
 	response.sendRedirect("/khairat/login.jsp");
 
+if(session.getAttribute("sessionRole") != null){
+	String sesRol = (String)session.getAttribute("sessionRole");
+	if (sesRol.equalsIgnoreCase("kariah"))
+		response.sendRedirect("/khairat/login.jsp");
+}
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 <html>
-
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>KARIAH & DEATH BENEFICIARY SYSTEM</title>
@@ -27,15 +30,14 @@ String sesName = (String)session.getAttribute("sessionName");
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-</head>
+
 <style>
 #customers {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 50%;
+	width: 100%;
 }
 
 #customers td, #customers th {
@@ -43,18 +45,23 @@ String sesName = (String)session.getAttribute("sessionName");
 	padding: 8px;
 }
 
+#customers tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
 #customers tr:hover {
 	background-color: #ddd;
 }
 
 #customers th {
-	padding-top: 15px;
+	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
 	background-color: #2a8ffa;
 	color: white;
 }
 </style>
+</head>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -71,7 +78,7 @@ String sesName = (String)session.getAttribute("sessionName");
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>
@@ -85,8 +92,7 @@ String sesName = (String)session.getAttribute("sessionName");
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link"
 				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Admin
-						Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Admin Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item active"><a class="nav-link" href="#"
 				data-toggle="collapse" data-target="#collapsePages"
 				aria-expanded="true" aria-controls="collapsePages"> <i
@@ -145,47 +151,45 @@ String sesName = (String)session.getAttribute("sessionName");
 									Logout
 								</a>
 							</div></li>
+
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
 
 
-				<h1 align="center">PAYMENT DETAILS</h1>
-				<br>
+				<div class="container">
+					<h1 align="center">MOSQUE LIST</h1>
+					<a href="MosqueController?action=addMosque" class="btn btn-success" style="float: right">ADD MOSQUE</a><br> <br>
+					<table id="customers">
+						<tr>
+							<th>MOSQUE ID</th>
+							<th>MOSQUE NAME</th>
+							<th>ADDRESS</th>
+							<th>MANAGED UNDER</th>
+							<th colspan="3">ACTIONS</th>
+						</tr>
+						<c:forEach items="${mosques}" var="mosque" varStatus="mosques">
+							<tr>
+								<td><c:out value="${mosque.mosqueId}" /></td>
+								<td><c:out value="${mosque.mosqueName}" /></td>
+								<td><c:out value="${mosque.mosqueAddress}" /></td>
+								<td><c:out value="${mosque.superv.mosqueName}" /></td>
+								<td><a
+									href="MosqueController?action=viewMosque&mosqueId=<c:out value="${mosque.mosqueId}" />"
+									class="btn btn-warning">VIEW</a></td>
+								<td><a
+									href="MosqueController?action=updateMosque&mosqueId=<c:out value="${mosque.mosqueId}" />"
+									class="btn btn-primary">UPDATE</a></td>
+								<td><input type="hidden" id="mosqueid-${mosques.index}"
+									value="<c:out value="${mosque.mosqueId}"/>">
+								<button class="btn btn-danger"
+										onclick="confirmation('${mosques.index}')">DELETE</button></td>
+						</c:forEach>
+					</table>
 
-				<table id="customers" align="center">
-					<tr>
-						<th>BILL ID</th>
-						<td><c:out value="${bill.bid}" /></td>
-					</tr>
-					<tr>
-						<th>BILL NAME</th>
-						<td><c:out value="${bill.billname}" /></td>
-					</tr>
-					<tr>
-						<th>USER NAME</th>
-						<td><c:out value="${user.name}" /></td>
-					</tr>
-					<tr>
-						<th>AMOUNT</th>
-						<td>RM<c:out value="${bill.amount}" /></td>
-					</tr>
-					<tr>
-						<th>PAYMENT METHOD</th>
-						<td><c:out value="${payment.method}" /></td>
-					</tr>
-					<tr>
-						<th>REFERENCE ID</th>
-						<td><c:out value="${payment.refid}" /></td>
-					</tr>
-				</table>
-				<br>
-				<center>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="APPROVE" />" class="btn btn-primary">APPROVE</a>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="REJECT" />" class="btn btn-danger">REJECT</a>
-				</center>
+				</div>
 				
-				<!-- Logout Modal-->
+								<!-- Logout Modal-->
 				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -207,14 +211,30 @@ String sesName = (String)session.getAttribute("sessionName");
 					</div>
 				</div>
 
-				<!-- Bootstrap core JavaScript-->
-				<script src="vendor/jquery/jquery.min.js"></script>
-				<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Bootstrap core JavaScript-->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-				<!-- Core plugin JavaScript-->
-				<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-				<!-- Custom scripts for all pages-->
-				<script src="js/sb-admin-2.min.js"></script>
-</body>
+		<!-- Custom scripts for all pages-->
+		<script src="js/sb-admin-2.min.js"></script>
+
+				<script>
+					function confirmation(index) {
+						var mosqueId = $("#mosqueId-" + index).val();
+
+						console.log(mosqueId);
+						var r = confirm("Are you sure you want to delete?");
+						if (r == true) {
+							location.href = 'MosqueController?action=deleteMosque&mosqueId='
+									+ mosqueId;
+							alert("Bill successfully deleted");
+						} else {
+							return false;
+						}
+					}
+				</script>
+				<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script></body>
 </html>

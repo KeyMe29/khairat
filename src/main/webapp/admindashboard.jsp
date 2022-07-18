@@ -101,11 +101,13 @@ int sessionId = (Integer)session.getAttribute("sessionId");
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="BillController?action=listBill">Bill List</a> 
 						<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
+						<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
+						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
 					</div>
 				</div></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="UserListController">
+			<li class="nav-item"><a class="nav-link" href="UserListController?action=listAllUser">
 					<i class="fas fa-fw fa-table"></i> <span>User List</span>
 			</a></li>
 		</ul>
@@ -135,7 +137,7 @@ int sessionId = (Integer)session.getAttribute("sessionId");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${staff.name}" /></span> <img
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${user.name}" /></span> <img
 								class="img-profile rounded-circle" src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -155,7 +157,11 @@ int sessionId = (Integer)session.getAttribute("sessionId");
 				<table id="customers" align="center" style="width:50%">
 					<tr>
 						<th>STAFF NAME</th>
-						<td><c:out value="${staff.name}" /></td>
+						<td><c:out value="${user.name}" /></td>
+					</tr>
+					<tr>
+						<th>STAFF EMAIL</th>
+						<td><c:out value="${user.email}" /></td>
 					</tr>
 					<tr>
 						<th>STAFF POSITION</th>

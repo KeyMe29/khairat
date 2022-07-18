@@ -1,12 +1,25 @@
 package khairat.model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Payment {
-	private int pid;
 	private int bid;
 	private String method;
+	private String refid;
 	private int userid;
 	private User user;
 	private Kariah kariah;
+	private String payStatus;
+	private LocalDate payDate;
+
+	public LocalDate getPayDate() {
+		return payDate;
+	}
+
+	public void setPayDate(LocalDate payDate) {
+		this.payDate = payDate;
+	}
 
 	public int getUserid() {
 		return userid;
@@ -17,14 +30,6 @@ public class Payment {
 	}
 
 	public Payment() {}
-
-	public int getPid() {
-		return pid;
-	}
-
-	public void setPid(int pid) {
-		this.pid = pid;
-	}
 
 	public int getBid() {
 		return bid;
@@ -56,5 +61,21 @@ public class Payment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+	
+	public String getRefid() {
+		return refid;
+	}
+
+	public void setRefid(String refid) {
+		this.refid = refid;
 	}
 }

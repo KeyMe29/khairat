@@ -13,8 +13,8 @@ public class KariahDAO {
 	static ResultSet rs = null; 
 	static PreparedStatement ps=null;
 	static Statement stmt=null;
-	static String username, maritalstat, gender;
-	static int id, phoneno;
+	static String maritalstat, gender, icNo, dob, address, phoneNo, userDeathDate;
+	static int id, mosqueId;
 
 	public static List<Kariah> getAllKariah() {
 		List<Kariah> kariahs = new ArrayList<Kariah>();
@@ -29,10 +29,14 @@ public class KariahDAO {
 			while (rs.next()) {
 				Kariah kariah = new Kariah();
 				kariah.setUserid(rs.getInt("userid"));
-				kariah.setUsername(rs.getString("username"));
+				kariah.setIcNo(rs.getString("icNo"));
+				kariah.setDob(rs.getString("dob"));
+				kariah.setAddress(rs.getString("address"));
+				kariah.setPhoneNo(rs.getString("phoneNo"));
 				kariah.setMaritalstat(rs.getString("maritalstat"));
-				kariah.setPhoneno(rs.getInt("phoneno"));
 				kariah.setGender(rs.getString("gender"));
+				kariah.setUserDeathDate(rs.getString("userDeathDate"));
+				kariah.setMosqueId(rs.getInt("mosqueId"));
 				kariahs.add(kariah);
 			}
 			//5. close connection
@@ -56,10 +60,15 @@ public class KariahDAO {
 
 			if (rs.next()) {	            
 				kariah.setUserid(rs.getInt("userid"));
-				kariah.setUsername(rs.getString("username"));
-				kariah.setGender(rs.getString("gender"));
+				kariah.setIcNo(rs.getString("icNo"));
+				kariah.setDob(rs.getString("dob"));
+				kariah.setAddress(rs.getString("address"));
+				kariah.setPhoneNo(rs.getString("phoneNo"));
 				kariah.setMaritalstat(rs.getString("maritalstat"));
-				kariah.setPhoneno(rs.getInt("phoneno"));
+				kariah.setGender(rs.getString("gender"));
+				kariah.setUserDeathDate(rs.getString("userDeathDate"));
+				kariah.setMosqueId(rs.getInt("mosqueId"));
+				kariah.setMosque(MosqueDAO.getmosqueById(rs.getInt("mosqueId")));
 			}
 			//5. close connection
 			con.close();
@@ -74,21 +83,46 @@ public class KariahDAO {
 	public void updateKariah(Kariah bean) {
 
 		id = bean.getUserid();
-		username = bean.getUsername();
-		gender = bean.getGender();
-		maritalstat = bean.getMaritalstat();
-		phoneno = bean.getPhoneno();	
+		address = bean.getAddress();
+		phoneNo = bean.getPhoneNo();
+		maritalstat = bean.getMaritalstat();	
+		userDeathDate = bean.getUserDeathDate();
+		mosqueId = bean.getMosqueId();
 
 		try {
 			//call getConnection() method  
 			con = ConnectionManager.getConnection();
 			//3. create statement  
-			ps=con.prepareStatement("update kariah set username=?,gender=?,maritalstat=?,phoneno=? WHERE userid=?"); 		  
-			ps.setString(1,username);//1 specifies the first parameter in the query i.e. name
-			ps.setString(2,gender);		
-			ps.setString(3,maritalstat);
-			ps.setInt(4,phoneno);
-			ps.setInt(5,id);
+			ps=con.prepareStatement("update kariah set address=?,phoneNo=?,maritalstat=?,userDeathDate=?,mosqueId=? WHERE userid=?"); 		  
+			ps.setString(1,address);//1 specifies the first parameter in the query i.e. name
+			ps.setString(2, phoneNo);
+			ps.setString(3,maritalstat);		
+			ps.setString(4,userDeathDate);
+			ps.setInt(5,mosqueId);
+			ps.setInt(6,id);
+			//4. execute query
+			ps.executeUpdate();
+
+			//5. close connection
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		
+		}
+	}
+	
+	public void updateDeathDate(Kariah bean) {
+
+		id = bean.getUserid();
+		userDeathDate = bean.getUserDeathDate();	
+
+		try {
+			//call getConnection() method  
+			con = ConnectionManager.getConnection();
+			//3. create statement  
+			ps=con.prepareStatement("update kariah set userDeathDate=? WHERE userid=?"); 		  
+			ps.setString(1,userDeathDate);//1 specifies the first parameter in the query i.e. name
+			ps.setInt(2,id);
 			//4. execute query
 			ps.executeUpdate();
 
@@ -113,10 +147,14 @@ public class KariahDAO {
 			while (rs.next()) {
 				Kariah kariah = new Kariah();
 				kariah.setUserid(rs.getInt("userid"));
-				kariah.setUsername(rs.getString("username"));
+				kariah.setIcNo(rs.getString("icNo"));
+				kariah.setDob(rs.getString("dob"));
+				kariah.setAddress(rs.getString("address"));
+				kariah.setPhoneNo(rs.getString("phoneNo"));
 				kariah.setMaritalstat(rs.getString("maritalstat"));
-				kariah.setPhoneno(rs.getInt("phoneno"));
 				kariah.setGender(rs.getString("gender"));
+				kariah.setUserDeathDate(rs.getString("userDeathDate"));
+				kariah.setMosqueId(rs.getInt("mosqueId"));
 				kariah.setUser(UserDAO.getUserById(rs.getInt("userid")));
 				
 				kariahs.add(kariah);

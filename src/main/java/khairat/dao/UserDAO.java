@@ -4,6 +4,7 @@ import java.security.*;
 import java.sql.*;
 import java.util.*;
 
+import khairat.model.Kariah;
 import khairat.model.User;
 import khairat.connection.ConnectionManager;
 
@@ -13,13 +14,15 @@ public class UserDAO {
 	static ResultSet rs = null; 
 	static PreparedStatement ps=null;
 	static Statement stmt=null;
-	static String email, password, user_type;
+	static String name, email, password, user_type;
+	static boolean activeStatus;
 	static int userid;
 	static String query;
 	
 	//add new user (register)
 	public void add(User bean) throws NoSuchAlgorithmException{
 		
+		name = bean.getName();
 		email = bean.getEmail();
 		password = bean.getPassword();
 		user_type = bean.getUser_type();
@@ -40,9 +43,11 @@ public class UserDAO {
 			//call getConnection() method 
 			con = ConnectionManager.getConnection();
 			//3. create statement  
-			ps=con.prepareStatement("insert into user(email,password,user_type)values(?,?,'Kariah')");
-			ps.setString(1, email);
-			ps.setString(2, password);
+			ps=con.prepareStatement("insert into user(name,email,password,user_type)values(?,?,?,?)");
+			ps.setString(1, name);
+			ps.setString(2, email);
+			ps.setString(3, password);
+			ps.setString(4, user_type);
 			//4. execute query
 			ps.executeUpdate();			
 			
@@ -74,7 +79,7 @@ public class UserDAO {
 			query = "select * from user where email='" + email + "'AND password='" + sb.toString() + "'";
 
 			try {
-				//call getConnection() method //3. create statement  //4. execute query
+				//call getConnection() method 
 				con = ConnectionManager.getConnection();
 				//3. create statement
 				stmt = con.createStatement();
@@ -85,13 +90,25 @@ public class UserDAO {
 				// if user exists set the isValid variable to true
 				if (more) {
 					int id = rs.getInt("userid");
+					String name = rs.getString("name");
 					String email = rs.getString("email");
 					String user_type = rs.getString("user_type");
+					activeStatus = rs.getBoolean("activeStatus");
 					bean.setUserid(id);
+					bean.setName(name);
 					bean.setEmail(email);
 					bean.setUser_type(user_type);
+					bean.setActiveStatus(activeStatus);
+					if(bean.isActiveStatus()) {
+						bean.setActiveStatusName("Active");
+						bean.setActiveStatusNo(1);
+					}
+					else {
+						bean.setActiveStatusName("Inactive");
+						bean.setActiveStatusNo(0);
+					}
 
-					System.out.println(user_type);
+					System.out.println(activeStatus);
 					bean.setValid(true);
 				}
 				// if user does not exist set the isValid variable to false
@@ -108,7 +125,7 @@ public class UserDAO {
 			return bean;
 		}
 	
-	//method to get user
+	//method to check if user existed before register
 		public static User getUser(User bean)  {   
 			//get email
 			email = bean.getEmail();
@@ -125,7 +142,10 @@ public class UserDAO {
 
 				// if user exists set the isValid variable to true
 				if (more) {
-					String email = rs.getString("email");
+					userid = rs.getInt("userid");
+					name = rs.getString("name");
+					email = rs.getString("email");
+					bean.setName("name");
 					bean.setEmail(email);
 					bean.setValid(true);
 				}
@@ -155,6 +175,7 @@ public class UserDAO {
 
 				if (rs.next()) {	            
 					us.setUserid(rs.getInt("userid"));
+					us.setName(rs.getString("name"));
 					us.setEmail(rs.getString("email"));				
 					us.setPassword(rs.getString("password"));
 
@@ -182,8 +203,18 @@ public class UserDAO {
 
 				if (rs.next()) {
 					us.setUserid(rs.getInt("userid"));
+					us.setName(rs.getString("name"));
 					us.setEmail(rs.getString("email"));
 					us.setPassword(rs.getString("password"));
+					us.setActiveStatus(rs.getBoolean("activeStatus"));
+					if(us.isActiveStatus()) {
+						us.setActiveStatusName("Active");
+						us.setActiveStatusNo(1);
+					}
+					else {
+						us.setActiveStatusName("Inactive");
+						us.setActiveStatusNo(0);
+					}
 
 				}
 				//5. close connection
@@ -209,7 +240,9 @@ public class UserDAO {
 				while (rs.next()) {
 					User us = new User();
 					us.setUserid(rs.getInt("userid"));
+					us.setName(rs.getString("name"));
 					us.setEmail(rs.getString("email"));
+					us.setActiveStatus(rs.getBoolean("activeStatus"));
 					users.add(us);
 
 				}
@@ -220,5 +253,59 @@ public class UserDAO {
 			}
 
 			return users;
+		}
+		
+		public void updateUser(User bean) {
+
+			name = bean.getName();
+			email = bean.getEmail();
+			userid = bean.getUserid(); 
+
+			try {
+				//call getConnection() method  
+				con = ConnectionManager.getConnection();
+				//3. create statement  
+				ps=con.prepareStatement("update user set name=?,email=? WHERE userid=?"); 		  
+				ps.setString(1,name);//1 specifies the first parameter in the query i.e. name
+				ps.setString(2, email);
+				ps.setInt(3,userid);
+				//4. execute query
+				ps.executeUpdate();
+
+				//5. close connection
+				con.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			
+			}
+		}
+		
+		public static void updateActiveStatus(User bean) {
+			//get user 
+			userid = bean.getUserid();
+			activeStatus = bean.isActiveStatus();
+			
+			System.out.println(activeStatus);
+			System.out.println(userid);
+			
+			try {
+				//call getConnection() method from ConnectionManager class
+				con = ConnectionManager.getConnection();
+				
+				//3. create statement
+				String sql = "UPDATE user SET activeStatus=? WHERE userid=?";
+				ps = con.prepareStatement(sql);
+				ps.setBoolean(1, activeStatus);
+				ps.setInt(2, userid);
+				
+				//4. execute query
+				ps.executeUpdate();
+				
+				//5. close connection
+				con.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 }

@@ -29,7 +29,6 @@ public class StaffDAO {
 			while (rs.next()) {
 				Staff st = new Staff();
 				st.setStaffid(rs.getInt("userid"));
-				st.setName(rs.getString("admin_name"));
 				st.setPosition(rs.getString("admin_position"));
 				//st.setId(rs.getInt("id"));
 				staff.add(st);
@@ -59,7 +58,6 @@ public class StaffDAO {
 			rs = ps.executeQuery();
 			if (rs.next()) {	            
 				st.setStaffid(rs.getInt("userid"));
-				st.setName(rs.getString("admin_name"));
 				st.setPosition(rs.getString("admin_position"));
 			}
 			//5. close connection
@@ -75,18 +73,16 @@ public class StaffDAO {
 	//update staff
 	public void updateStaff(Staff bean) {
 
-		staffid = bean.getStaffid();
-		name = bean.getName();	
+		staffid = bean.getUserid();
 		position = bean.getPosition();
 
 		try {
 			//call getConnection() method
 			con = ConnectionManager.getConnection();
 			//3. create statement 
-			ps=con.prepareStatement("update admin set admin_name=?, admin_position=?  WHERE userid=?"); 		  
-			ps.setString(1,name); //1 specifies the first parameter in the query i.e. name	
-			ps.setString(2, position);
-			ps.setInt(3,staffid);
+			ps=con.prepareStatement("update admin set admin_position=?  WHERE userid=?"); 		
+			ps.setString(1, position);
+			ps.setInt(2,staffid);
 			//4. execute query
 			ps.executeUpdate();
 			//5. close connection

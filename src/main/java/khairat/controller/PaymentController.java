@@ -51,6 +51,7 @@ public class PaymentController extends HttpServlet {
 			int userid = Integer.parseInt(request.getParameter("userid"));
 			request.setAttribute("payments", PaymentDAO.getUserPayment(userid));
 			request.setAttribute("kariah", KariahDAO.getKariahById(userid));
+			request.setAttribute("user", UserDAO.getUserById(userid));
 		}
 		if(action.equalsIgnoreCase("listAllPayment")) {
 			forward = "listAllPayment.jsp";
@@ -62,19 +63,24 @@ public class PaymentController extends HttpServlet {
 			else 
 				forward = "viewPayment.jsp";
 			
-			int paymentid = Integer.parseInt(request.getParameter("pid"));
-			String temppid = String.valueOf(paymentid);
-			String trimpid = temppid.trim();
-			
 			int billid = Integer.parseInt(request.getParameter("bid"));
 			String tempbid = String.valueOf(billid);
 			String trimbid = tempbid.trim();
 			
-			int pid = Integer.parseInt(trimpid);
-			int bid = Integer.parseInt(trimbid);
+			int userid = Integer.parseInt(request.getParameter("userid"));
+			String tempuserid = String.valueOf(userid);
+			String trimuid = tempuserid.trim();
 			
-			request.setAttribute("payment", PaymentDAO.getPaymentById(pid));
-			request.setAttribute("bill", BillDAO.getBillById(bid));
+			int bId = Integer.parseInt(trimbid);
+			int uId = Integer.parseInt(trimuid);
+			
+			Payment payment = new Payment();
+			payment.setBid(bId);
+			payment.setUserid(uId);
+			
+			request.setAttribute("user", UserDAO.getUserById(uId));
+			request.setAttribute("payment", PaymentDAO.getPaymentById(payment));
+			request.setAttribute("bill", BillDAO.getBillById(bId));
 		}
 		if(action.equalsIgnoreCase("deletePayment")) {
 			forward = "listPayment.jsp";
@@ -83,9 +89,33 @@ public class PaymentController extends HttpServlet {
 			request.setAttribute("payments", PaymentDAO.getAllPayments());
 		}
 		if(action.equalsIgnoreCase("updatePayment")) {
-			forward = "updatePayment.jsp";
-			int pid = Integer.parseInt(request.getParameter("pid"));
-			request.setAttribute("payment", PaymentDAO.getPaymentById(pid));
+			forward = "listAllPayment.jsp";
+			
+			int billid = Integer.parseInt(request.getParameter("bid"));
+			String tempbid = String.valueOf(billid);
+			String trimbid = tempbid.trim();
+			
+			int userid = Integer.parseInt(request.getParameter("userid"));
+			String tempuserid = String.valueOf(userid);
+			String trimuid = tempuserid.trim();
+			
+			String tempStatus = request.getParameter("payStatus");
+			String trimpaymentstatus = tempStatus.trim();
+			Payment payment = new Payment();
+			
+			int bId = Integer.parseInt(trimbid);
+			int uId = Integer.parseInt(trimuid);
+			
+			payment.setBid(bId);
+			payment.setUserid(uId);
+			payment.setPayStatus(trimpaymentstatus);
+			dao.updatePayment(payment);
+			
+			
+			request.setAttribute("payment", PaymentDAO.getPaymentById(payment));
+			request.setAttribute("user", UserDAO.getUserById(uId));
+			request.setAttribute("bill", BillDAO.getBillById(bId));
+			request.setAttribute("payments", PaymentDAO.getAllPayments());
 		}
 		if(action.equalsIgnoreCase("addPayment")) {
 			forward = "addPayment.jsp";
@@ -104,15 +134,17 @@ public class PaymentController extends HttpServlet {
 			Payment payment = new Payment();
 			payment.setBid(Integer.parseInt(request.getParameter("bid")));
 			payment.setMethod(request.getParameter("method"));
+			payment.setRefid(request.getParameter("refid"));
 			payment.setUserid(Integer.parseInt(request.getParameter("userid")));
+			//payment.setPayDate(java.time.LocalDate.now());
 			
-			String pid = request.getParameter("pid");
+			String type = request.getParameter("type");
 			
-			if(pid == null || pid.isEmpty()) {
+			if(type.equalsIgnoreCase("add")) {
 				dao.addPayment(payment); 
 			}
 			else {
-				payment.setPid(Integer.parseInt(request.getParameter("pid")));
+				payment.setUserid(Integer.parseInt(request.getParameter("userid")));
 				dao.updatePayment(payment);
 			}
 			

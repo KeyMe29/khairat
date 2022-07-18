@@ -170,6 +170,7 @@ body {
 							<label for="bid">BILL ID</label>
 						</div>
 						<input type="hidden" name="userid" value="<%= sessionId %>">
+						<input type="hidden" name="type" value="add">
 						<select type="dropdown" name="bid" id="bid"
 							style="color: grey; border-radius: 8px; background-color: white; padding: 13px; border: 1px solid #ccc;">
 							<option value="">SELECT BILL ID</option>
@@ -189,7 +190,12 @@ body {
 							<option value="Debit Card">DEBIT CARD / CREDIT CARD
 							<option value="E-Wallet">E-WALLET
 							<option value="Online Banking">ONLINE BANKING
-						</select><br></br> <input class="btn btn-primary" type="submit"
+						</select><br><br>
+						<div class="col-md-3">
+								<label class="labels">REFERENCE ID</label><input type="number"
+									class="form-control" name="refid" required>
+							</div>
+						</br> <input class="btn btn-primary" type="submit"
 							value="SUBMIT"">
 					</form>
 					<!-- End Page Content -->

@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import khairat.dao.KariahDAO;
+import khairat.dao.PaymentDAO;
 import khairat.dao.UserDAO;
+import khairat.model.Kariah;
+import khairat.model.Payment;
+import khairat.model.User;
 
 /**
  * Servlet implementation class UserListController
@@ -20,6 +24,8 @@ public class UserListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO dao;
 	private KariahDAO kdao;
+    RequestDispatcher view;
+    private String forward;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,9 +40,101 @@ public class UserListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setAttribute("kariahs", KariahDAO.getAllUserKariah());
-		RequestDispatcher view = request.getRequestDispatcher("userList.jsp");
+		
+		String action = request.getParameter("action");
+		
+		if(action.equalsIgnoreCase("listAllUser")) {
+			forward = "userList.jsp"; 
+			request.setAttribute("kariahs", KariahDAO.getAllUserKariah());
+		}
+		
+		if(action.equalsIgnoreCase("viewUser")) {
+			forward = "userViewAdmin.jsp";
+		
+			int uid = Integer.parseInt(request.getParameter("userid"));
+			String tempuserid = String.valueOf(uid);
+			String trimuid = tempuserid.trim();
+			
+			int kuid = Integer.parseInt(request.getParameter("userid"));
+			String tempkid = String.valueOf(kuid);
+			String trimkid = tempkid.trim();
+		
+			boolean activestatus = Boolean.parseBoolean(request.getParameter("activeStatus"));
+			String tempactive = String.valueOf(activestatus);
+			String trimStatus = tempactive.trim();
+		
+			int uId = Integer.parseInt(trimuid);
+			Boolean aS = Boolean.parseBoolean(trimStatus);
+			int kUid = Integer.parseInt(trimkid);
+		
+			User user = new User();
+			Kariah kariah = new Kariah();
+			
+			user.setUserid(uId);
+			user.setActiveStatus(aS);
+			kariah.setUserid(kUid);
+			
+			
+			request.setAttribute("user", UserDAO.getUserById(uId));
+			request.setAttribute("kariah", KariahDAO.getKariahById(kUid));
+		}
+		
+		if(action.equalsIgnoreCase("updateUser")) {
+			forward = "userViewAdmin.jsp";
+		
+			int uid = Integer.parseInt(request.getParameter("userid"));
+			String tempuserid = String.valueOf(uid);
+			String trimuid = tempuserid.trim();
+		
+			int kuid = Integer.parseInt(request.getParameter("userid"));
+			String tempkid = String.valueOf(kuid);
+			String trimkid = tempkid.trim();
+			
+			Boolean activestatus = Boolean.parseBoolean(request.getParameter("activeStatus"));
+			String tempactive = String.valueOf(activestatus);
+			String trimStatus = tempactive.trim();
+			
+			String tempDeath = request.getParameter("userDeathDate");
+			String trimdDate = tempDeath.trim();
+		
+			int uId = Integer.parseInt(trimuid);
+			int kUid = Integer.parseInt(trimkid);
+			Boolean aS = Boolean.parseBoolean(trimStatus);
+		
+			User user = new User();
+			Kariah kariah = new Kariah();
+			
+			kariah.setUserDeathDate(trimdDate);
+			user.setUserid(uId);
+			user.setActiveStatus(aS);
+			kariah.setUserid(kUid);
+			
+			UserDAO.updateActiveStatus(user);
+			
+			request.setAttribute("user", UserDAO.getUserById(uId));
+			request.setAttribute("kariah", KariahDAO.getKariahById(kUid));
+			request.setAttribute("kariahs", KariahDAO.getAllUserKariah());
+		}
+		view = request.getRequestDispatcher(forward);
 		view.forward(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+			User user = new User();
+			user.setActiveStatus(Boolean.parseBoolean(request.getParameter("activeStatus")));
+			user.setUserid(Integer.parseInt(request.getParameter("userid")));
+			System.out.println(user);
+			
+			System.out.println(user.isActiveStatus());
+			System.out.println(user.getUserid());
+			
+			UserDAO.updateActiveStatus(user);
+			
+			request.setAttribute("user", UserDAO.getUserById(user.getUserid()));
+			request.setAttribute("kariah", KariahDAO.getKariahById(user.getUserid()));
+			view = request.getRequestDispatcher("userViewAdmin.jsp");
+			view.forward(request, response);
 	}
 
 }

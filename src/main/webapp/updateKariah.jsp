@@ -127,7 +127,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${kariah.username}" /></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${user.name}" /></span> <img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -152,14 +152,23 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 					<tr>
 						<th>Full Name</th>
 							<input type="hidden" name="userid" value="<%= sessionId %>">
-							<td><input type="text" class="form-control" id="username" name="username"
-									value="<c:out value="${kariah.username}"/>"></td>
+							<td><input type="text" class="form-control" readonly id="name" name="name"
+									value="<c:out value="${user.name}"/>"></td>
 						</tr>
 						<tr>
+						<th>IC No.</th>
+						<td><input type="text" readonly class="form-control" id="icNo" name="icNo"
+									value="<c:out value="${kariah.icNo}"/>"></td>
+					</tr>
+						<tr>
+						<th>ADDRESS</th>
+						<td><input type="text" class="form-control" id="address" name="address"
+									value="<c:out value="${kariah.address}"/>"></td>
+					</tr>
+						<tr>
 							<th>Phone No</th>
-							
 							<td><label class="form-control" style="display: inline">60</label>
-							<input type="number" style="border-radius: 6px; border-color:#6e707e" id="phoneno" name="phoneno" value="<c:out value="${kariah.phoneno}" />"></td>
+							<input type="number" style="border-radius: 6px; border-color:#6e707e" id="phoneNo" name="phoneNo" value="<c:out value="${kariah.phoneNo}" />"></td>
 						</tr>
 						<tr>
 							<th>Marital Status</th>
@@ -181,11 +190,26 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 						</tr>
 						<tr>
 							<th>Gender</th>
-							<td><div class="form-check">
-									<b><input type="text" readonly class="form-control" id="gender" name="gender" value="<c:out value="${kariah.gender}" />"></b>
-                                 </div></td>
-                                 
-                           	<td rowspan="2">
+								<td><div class="form-check">
+										<b><input type="text" readonly class="form-control" id="gender" name="gender"
+											value="<c:out value="${kariah.gender}" />"></b>
+									</div>
+								</td>
+							<tr>
+							<th>Mosque</th>
+						<td><select type="dropdown" name="mosqueId" id="mosqueId"
+									style="color: grey; border-radius: 8px; background-color: white; padding: 13px; border: 1px solid #ccc;">
+									<option value="<c:out value="${kariah.mosqueId}"/>"> <c:out value="${kariah.mosque.mosqueName}"/> </option>
+									<c:forEach items="${mosques}" var="mosque">
+										<option style="color: black" value="<c:out value='${mosque.mosqueId}'/>">
+											<c:out value="${mosque.mosqueId}" />.
+											<c:out value="${mosque.mosqueName}" />
+										</option>
+									</c:forEach>
+								</select></td>
+								</tr>
+
+								<td rowspan="2">
                                  <input type="submit" name="submit" value="Update" class="btn btn-primary btn-user">
                            	</td>
                            	

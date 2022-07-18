@@ -130,7 +130,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${kariah.username}" /></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${user.name}" /></span> <img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -153,18 +153,22 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 
 					<table id="customers">
 						<tr>
-							<th>PAYMENT ID</th>
+							<th>USER ID</th>
 							<th>BILL ID</th>
 							<th>METHOD</th>
+							<th>PAYMENT REFERENCE ID</th>
+							<th>PAYMENT STATUS</th>
 							<th colspan="3">ACTIONS</th>
 						</tr>
 						<c:forEach items="${payments}" var="payment" varStatus="payments">
 							<tr>
-								<td><c:out value="${payment.pid}" /></td>
+								<td><c:out value="${payment.userid}" /></td>
 								<td><c:out value="${payment.bid}" /></td>
 								<td><c:out value="${payment.method}" /></td>
+								<td><c:out value="${payment.refid}" /></td>
+								<td><c:out value="${payment.payStatus}" /></td>
 								<td><a
-									href="PaymentController?action=viewPayment&pid=<c:out value="${payment.pid}" />&bid=<c:out value="${payment.bid}" />&Role=<%=sesRol %>"
+									href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />&Role=<%=sesRol %>"
 									class="btn btn-warning">VIEW PAYMENT DETAILS</a></td>
 						</c:forEach>
 					</table>

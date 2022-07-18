@@ -127,7 +127,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${kariah.username}" /></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${user.name}" /></span> <img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -147,14 +147,26 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 				<h1 align="center">KARIAH DETAILS</h1>
 				<br>
 
-				<table id="customers" align="center">
-					<tr>
-						<th>Full Name</th>
-							<td><c:out value="${kariah.username}" /></td>
+					<table id="customers" align="center">
+						<tr>
+							<th>Full Name</th>
+							<td><c:out value="${user.name}" /></td>
+						</tr>
+						<tr>
+							<th>IC No.</th>
+							<td><c:out value="${kariah.icNo}" /></td>
+						</tr>
+						<tr>
+							<th>Date of Birth</th>
+							<td><c:out value="${kariah.dob}" /></td>
+						</tr>
+						<tr>
+							<th>Address</th>
+							<td><c:out value="${kariah.address}" /></td>
 						</tr>
 						<tr>
 							<th>Phone No</th>
-							<td>60<c:out value="${kariah.phoneno}" /></td>
+							<td>60<c:out value="${kariah.phoneNo}" /></td>
 						</tr>
 						<tr>
 							<th>Marital Status</th>
@@ -163,9 +175,9 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 						<tr>
 							<th>Gender</th>
 							<td><c:out value="${kariah.gender}" /></td>
-					</tr>
-				</table>
-				<br>
+						</tr>
+					</table>
+					<br>
 				<a href="KariahController?action=updateKariah&userid=<%=sessionId %>&email=<%=sesEmail %>"
 					class="btn btn-primary" style="float: right">UPDATE</a>
 				</div>

@@ -150,8 +150,8 @@ String sesName = (String)session.getAttribute("sessionName");
 
 				<table id="customers" align="center">
 					<tr>
-						<th>PAYMENT ID</th>
-						<td><c:out value="${payment.bid}" /></td>
+						<th>BILL ID</th>
+						<td><c:out value="${bill.bid}" /></td>
 					</tr>
 					<tr>
 						<th>BILL NAME</th>
@@ -164,6 +164,10 @@ String sesName = (String)session.getAttribute("sessionName");
 					<tr>
 						<th>PAYMENT METHOD</th>
 						<td><c:out value="${payment.method}" /></td>
+					</tr>
+					<tr>
+						<th>REFERENCE ID</th>
+						<td><c:out value="${payment.refid}" /></td>
 					</tr>
 				</table>
 				

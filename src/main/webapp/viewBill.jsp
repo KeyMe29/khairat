@@ -75,7 +75,8 @@ String sesName = (String)session.getAttribute("sessionName");
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>">
+				<i class="small material-icons">account_circle</i>
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>
@@ -88,9 +89,10 @@ String sesName = (String)session.getAttribute("sessionName");
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link"
-				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Admin
-						Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Admin
+						Dashboard</span>
+			</a> <!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item active"><a class="nav-link" href="#"
 				data-toggle="collapse" data-target="#collapsePages"
 				aria-expanded="true" aria-controls="collapsePages"> <i
@@ -100,13 +102,16 @@ String sesName = (String)session.getAttribute("sessionName");
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="BillController?action=listBill">Bill List</a> 
-						<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
+						<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a> 
+						<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
+						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
 					</div>
 				</div></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="UserListController">
-					<i class="fas fa-fw fa-table"></i> <span>User List</span>
+			<li class="nav-item"><a class="nav-link"
+				href="UserListController"> <i class="fas fa-fw fa-table"></i> <span>User
+						List</span>
 			</a></li>
 		</ul>
 		<!-- End of Sidebar -->
@@ -135,7 +140,8 @@ String sesName = (String)session.getAttribute("sessionName");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sesName %></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sesName %></span>
+								<img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -206,4 +212,8 @@ String sesName = (String)session.getAttribute("sessionName");
 
 				<!-- Custom scripts for all pages-->
 				<script src="js/sb-admin-2.min.js"></script>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

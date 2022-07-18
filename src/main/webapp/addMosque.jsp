@@ -9,6 +9,11 @@ response.setDateHeader("Expires", 0);
 if (session.getAttribute("sessionEmail") == null)
 	response.sendRedirect("/khairat/login.jsp");
 
+if(session.getAttribute("sessionRole") != null){
+	String sesRol = (String)session.getAttribute("sessionRole");
+	if (sesRol.equalsIgnoreCase("kariah"))
+		response.sendRedirect("/khairat/login.jsp");
+}
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
@@ -16,7 +21,6 @@ String sesName = (String)session.getAttribute("sessionName");
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>KARIAH & DEATH BENEFICIARY SYSTEM</title>
@@ -27,34 +31,9 @@ String sesName = (String)session.getAttribute("sessionName");
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
-<style>
-#customers {
-	font-family: Arial, Helvetica, sans-serif;
-	border-collapse: collapse;
-	width: 50%;
-}
-
-#customers td, #customers th {
-	border: 1px solid #ddd;
-	padding: 8px;
-}
-
-#customers tr:hover {
-	background-color: #ddd;
-}
-
-#customers th {
-	padding-top: 15px;
-	padding-bottom: 12px;
-	text-align: left;
-	background-color: #2a8ffa;
-	color: white;
-}
-</style>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -71,7 +50,7 @@ String sesName = (String)session.getAttribute("sessionName");
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>
@@ -145,47 +124,94 @@ String sesName = (String)session.getAttribute("sessionName");
 									Logout
 								</a>
 							</div></li>
+
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
 
 
-				<h1 align="center">PAYMENT DETAILS</h1>
-				<br>
+				<!-- Custom styles for this template-->
+				<link href="css/sb-admin-2.min.css" rel="stylesheet">
+				<style>
+::-webkit-scrollbar {
+	width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
 
-				<table id="customers" align="center">
-					<tr>
-						<th>BILL ID</th>
-						<td><c:out value="${bill.bid}" /></td>
-					</tr>
-					<tr>
-						<th>BILL NAME</th>
-						<td><c:out value="${bill.billname}" /></td>
-					</tr>
-					<tr>
-						<th>USER NAME</th>
-						<td><c:out value="${user.name}" /></td>
-					</tr>
-					<tr>
-						<th>AMOUNT</th>
-						<td>RM<c:out value="${bill.amount}" /></td>
-					</tr>
-					<tr>
-						<th>PAYMENT METHOD</th>
-						<td><c:out value="${payment.method}" /></td>
-					</tr>
-					<tr>
-						<th>REFERENCE ID</th>
-						<td><c:out value="${payment.refid}" /></td>
-					</tr>
-				</table>
-				<br>
-				<center>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="APPROVE" />" class="btn btn-primary">APPROVE</a>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="REJECT" />" class="btn btn-danger">REJECT</a>
-				</center>
-				
-				<!-- Logout Modal-->
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+body {
+	background: rgb(99, 39, 120)
+}
+
+.back:hover {
+	color: #682773;
+	cursor: pointer
+}
+
+.add-experience:hover {
+	background: #BA68C8;
+	color: #fff;
+	cursor: pointer;
+	border: solid 1px #BA68C8
+}
+</style>
+</head>
+
+
+				<!-- Begin Page Content -->
+				<!-- /.container-fluid -->
+				<div class="container rounded bg-white">
+
+
+					<div class="p-3 py-5">
+						<div
+							class="d-flex justify-content-between align-items-center mb-3">
+							<h1 class="text-right">ADD MOSQUE</h1>
+						</div>
+						<form action="MosqueController" method="post">
+							<div class="col-md-12">
+								<label class="labels">MOSQUE NAME</label><input type="text"
+									class="form-control" name="mosqueName" required>
+							</div>
+							<div class="col-md-12">
+								<label class="labels">ADDRESS</label><input type="text"
+									class="form-control" name="mosqueAddress" required>
+							</div>
+							<div class="col-md-12"><br>
+								<label class="labels">SUPERVISOR MOSQUE:</label><br>
+								<select type="dropdown" name="supervisorId" id="supervisorId"
+									style="color: grey; border-radius: 8px; background-color: white; padding: 13px; border: 1px solid #ccc;">
+									<option value="">SELECT MOSQUE</option>
+									<c:forEach items="${mosques}" var="mosque">
+										<option style="color: black"
+											value="<c:out value='${mosque.mosqueId}'/>">
+											<c:out value="${mosque.mosqueId}" />.
+											<c:out value="${mosque.mosqueName}" />
+										</option>
+									</c:forEach>
+								</select><br>
+							</div>
+							<br> 
+							<div class="col-md-12">
+								<input class="btn btn-primary" type="submit" value="ADD MOSQUE"">
+							</div>
+						</form>
+						<!-- End Page Content -->
+					</div>
+					
+									<!-- Logout Modal-->
 				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 					aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -207,14 +233,14 @@ String sesName = (String)session.getAttribute("sessionName");
 					</div>
 				</div>
 
-				<!-- Bootstrap core JavaScript-->
-				<script src="vendor/jquery/jquery.min.js"></script>
-				<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Bootstrap core JavaScript-->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-				<!-- Core plugin JavaScript-->
-				<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-				<!-- Custom scripts for all pages-->
-				<script src="js/sb-admin-2.min.js"></script>
+		<!-- Custom scripts for all pages-->
+		<script src="js/sb-admin-2.min.js"></script>
 </body>
 </html>

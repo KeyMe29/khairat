@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import khairat.dao.StaffDAO;
+import khairat.dao.UserDAO;
 import khairat.model.Staff;
+import khairat.model.User;
 
 /**
  * Servlet implementation class AdminController
@@ -20,6 +22,7 @@ import khairat.model.Staff;
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static StaffDAO dao;	
+	private static UserDAO udao;
     RequestDispatcher view;
     private String forward;
 	HttpSession session;
@@ -30,6 +33,7 @@ public class AdminController extends HttpServlet {
     public AdminController() {
         super();
         dao = new StaffDAO();
+        udao = new UserDAO();
         // TODO Auto-generated constructor stub
     }
 
@@ -43,11 +47,13 @@ public class AdminController extends HttpServlet {
 			if(action.equalsIgnoreCase("admindashboard")) {
 				forward = "admindashboard.jsp";
 				int userid = Integer.parseInt(request.getParameter("userid"));
+				request.setAttribute("user", UserDAO.getUserById(userid));
 				request.setAttribute("staff", StaffDAO.getStaffById(userid));
 			}
 			if(action.equalsIgnoreCase("updateAdmin")) {
 				forward = "updateAdmin.jsp";
 				int userid = Integer.parseInt(request.getParameter("userid"));
+				request.setAttribute("user", UserDAO.getUserById(userid));
 				request.setAttribute("staff", StaffDAO.getStaffById(userid));
 			}
 			
@@ -61,17 +67,27 @@ public class AdminController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		session = request.getSession(true);
+		User us = new User();
 		Staff st = new Staff();
-		st.setName(request.getParameter("name"));
+		us.setName(request.getParameter("name"));
+		us.setEmail(request.getParameter("email"));
 		st.setPosition(request.getParameter("position"));
-		int id = (Integer)session.getAttribute("sessionId");
-		st.setStaffid(id);
-		session.setAttribute("sessionName", st.getName());
-		dao.updateStaff(st);
+		us.setUserid((Integer)session.getAttribute("sessionId"));
+		st.setStaffid((Integer)session.getAttribute("sessionId"));
 		
-		request.setAttribute("staff", StaffDAO.getStaffById(st.getStaffid()));
-		view = request.getRequestDispatcher("admindashboard.jsp");
-		view.forward(request, response);
+		session.setAttribute("sessionName", us.getName());
+			
+			dao.updateStaff(st);
+			udao.updateUser(us);
+			
+			request.setAttribute("user", UserDAO.getUserById(us.getUserid()));
+			request.setAttribute("staff", StaffDAO.getStaffById(st.getStaffid()));
+			view = request.getRequestDispatcher("admindashboard.jsp");
+			view.forward(request, response);
+		
+		
+		
+		
 	}
 
 }

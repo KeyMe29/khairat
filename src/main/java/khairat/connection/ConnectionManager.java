@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ConnectionManager {
 	static Connection con;
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_CONNECTION = "jdbc:mysql://localhost/khairat";
+	private static final String DB_CONNECTION = "jdbc:mysql://localhost/khairat-test";
 	private static final String DB_USER = "root";
 	private static final String DB_PASSWORD = "";
 	

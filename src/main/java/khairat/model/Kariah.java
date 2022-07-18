@@ -2,12 +2,25 @@ package khairat.model;
 
 public class Kariah {
 	private int userid;
-	private String username;
-	private int phoneno;
+	private String icNo;
+	private String dob;
+	private String address;
+	private String phoneNo;
 	private String maritalstat;
 	private String gender;
+	private String userDeathDate;
+	private int mosqueId;
 	private User user;
+	private Mosque mosque;
 	
+	public Mosque getMosque() {
+		return mosque;
+	}
+
+	public void setMosque(Mosque mosque) {
+		this.mosque = mosque;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -18,15 +31,6 @@ public class Kariah {
 
 	public Kariah() {}
 	
-	public Kariah(int userid, String username, int phoneno, String maritalstat, String gender) {
-		super();
-		this.setUserid(userid);
-		this.setUsername(username);
-		this.setPhoneno(phoneno);
-		this.setMaritalstat(maritalstat);
-		this.setGender(gender);
-	}
-	
 	public int getUserid() {
 		return userid;
 	}
@@ -34,22 +38,39 @@ public class Kariah {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-
-	public String getUsername() {
-		return username;
+	
+	public String getIcNo() {
+		return icNo;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setIcNo(String icNo) {
+		this.icNo = icNo;
+	}
+	
+	public String getDob() {
+		return dob;
 	}
 
-	public int getPhoneno() {
-		return phoneno;
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 
-	public void setPhoneno(int phoneno) {
-		this.phoneno = phoneno;
+	public String getAddress() {
+		return address;
 	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
 
 	public String getMaritalstat() {
 		return maritalstat;
@@ -65,6 +86,22 @@ public class Kariah {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	
+	public String getUserDeathDate() {
+		return userDeathDate;
+	}
+
+	public void setUserDeathDate(String userDeathDate) {
+		this.userDeathDate = userDeathDate;
+	}
+	
+	public int getMosqueId() {
+		return mosqueId;
+	}
+
+	public void setMosqueId(int mosqueId) {
+		this.mosqueId = mosqueId;
 	}
 
 

@@ -33,6 +33,7 @@
 								<h1 class="h4 text-gray-900 mb-4">Create Your Account</h1>
 							</div>
 							<form class="user" action="RegisterController" method="post">
+							<input type="hidden" name="user_type" value="Kariah"> 
 								<p> Full Name :
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
@@ -47,12 +48,22 @@
 								<div class="form-group">
 									<input type="password" class="form-control form-control-user" id="password" placeholder="Enter password" name="password" required>
 								</div>
+								<p> IC Number :
+								<div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="icNo"
+                                        placeholder="Enter Your IC No." name="icNo" required>      
+                                </div>
+                                <p> Address :
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="address"
+                                        placeholder="Enter Address" name="address" required>      
+                                </div>
 								<p> Phone Number :
                                 <div class="form-group">
-                                    <input type="number" class="form-control form-control-user" id="phoneno"
+                                    <input type="tel" class="form-control form-control-user" id="phoneno"
                                         placeholder="Enter Your Phone Number" name="phoneno" required>      
                                 </div>
-                                <p>Choose Marital Status</p>
+                                <p>Marital Status :</p>
                                  <div class="form-check">
                                     <label class="form-check-label" for="maritalstat">
                                          <input type="radio" class="form-check-input" id="maritalstat" name="maritalstat" value="Single" required>Single
@@ -67,7 +78,7 @@
                                          <input type="radio" class="form-check-input" id="maritalstat" name="maritalstat" value="Widowed">Widowed
                                               </label>&nbsp &nbsp &nbsp &nbsp           
                                  </div><br>
-                                <p>Choose gender</p>
+                                <p>Gender</p>
                                  <div class="form-check">
                                     <label class="form-check-label" for="gender">
                                          <input type="radio" class="form-check-input" id="gender" name="gender" value="Male" required>Male
@@ -76,6 +87,18 @@
                                          <input type="radio" class="form-check-input" id="gender" name="gender" value="Female">Female
                                               </label>
                                  </div><br>
+								<label class="labels">Qariah of Mosque:</label><br>
+								<select type="dropdown" name="mosqueId" id="mosqueId" class="form-check-input"
+									style="color: grey; border-radius: 8px; background-color: white; padding: 13px; border: 1px solid #ccc;">
+									<option value="">SELECT MOSQUE</option>
+									<c:forEach items="${mosques}" var="mosque">
+										<option style="color: black"
+											value="<c:out value='${mosque.mosqueId}'/>">
+											<c:out value="${mosque.mosqueId}" />.
+											<c:out value="${mosque.mosqueName}" />
+										</option>
+									</c:forEach>
+								</select><br>
 						</div>
 					</div>
 					<input type="submit" name="submit" value="Register" class="btn btn-primary btn-user btn-block">

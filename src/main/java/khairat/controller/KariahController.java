@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import khairat.dao.DependentDAO;
 import khairat.dao.KariahDAO;
+import khairat.dao.MosqueDAO;
 import khairat.dao.StaffDAO;
 import khairat.dao.UserDAO;
 import khairat.model.Kariah;
+import khairat.model.User;
 
 /**
  * Servlet implementation class KariahController
@@ -22,6 +25,7 @@ import khairat.model.Kariah;
 public class KariahController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static KariahDAO kdao;
+	private static DependentDAO ddao;
 	HttpSession session;
 	RequestDispatcher view;
 	private String forward;
@@ -32,6 +36,7 @@ public class KariahController extends HttpServlet {
     public KariahController() {
         super();
         kdao = new KariahDAO();
+        ddao = new DependentDAO();
         // TODO Auto-generated constructor stub
     }
 
@@ -57,6 +62,7 @@ public class KariahController extends HttpServlet {
 			
 			request.setAttribute("user", UserDAO.getUserByEmail(email));
 			request.setAttribute("kariah", KariahDAO.getKariahById(userid));
+			request.setAttribute("mosques", MosqueDAO.getAllmosque());
 		}
 		view = request.getRequestDispatcher(forward);
 		view.forward(request, response);
@@ -69,15 +75,20 @@ public class KariahController extends HttpServlet {
 		// TODO Auto-generated method stub
 		session = request.getSession(true);
 		Kariah kariah = new Kariah();
-		kariah.setUsername(request.getParameter("username"));
-		kariah.setPhoneno(Integer.parseInt(request.getParameter("phoneno")));
+		kariah.setAddress(request.getParameter("address"));
+		kariah.setPhoneNo(request.getParameter("phoneNo"));
 		kariah.setMaritalstat(request.getParameter("maritalstat"));
-		kariah.setGender(request.getParameter("gender"));
+		kariah.setUserDeathDate(request.getParameter("userDeathDate"));
 		kariah.setUserid(Integer.parseInt(request.getParameter("userid")));
-		session.setAttribute("sessionName", kariah.getUsername());
+		kariah.setMosqueId(Integer.parseInt(request.getParameter("mosqueId")));
+		User us = UserDAO.getUserById(kariah.getUserid());
+		session.setAttribute("sessionName",us.getName());
 		kdao.updateKariah(kariah);
+		kdao.updateDeathDate(kariah);
 		
+		request.setAttribute("user", UserDAO.getUserById(kariah.getUserid()));
 		request.setAttribute("kariah", KariahDAO.getKariahById(kariah.getUserid()));
+		request.setAttribute("mosque", MosqueDAO.getmosqueById(kariah.getUserid()));
 		view = request.getRequestDispatcher("homepage.jsp");
 		view.forward(request, response);
 		

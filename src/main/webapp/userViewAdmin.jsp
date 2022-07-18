@@ -150,40 +150,63 @@ String sesName = (String)session.getAttribute("sessionName");
 				<!-- End of Topbar -->
 
 
-				<h1 align="center">PAYMENT DETAILS</h1>
+				<h1 align="center">USER DETAILS</h1>
 				<br>
 
 				<table id="customers" align="center">
-					<tr>
-						<th>BILL ID</th>
-						<td><c:out value="${bill.bid}" /></td>
-					</tr>
-					<tr>
-						<th>BILL NAME</th>
-						<td><c:out value="${bill.billname}" /></td>
-					</tr>
-					<tr>
-						<th>USER NAME</th>
-						<td><c:out value="${user.name}" /></td>
-					</tr>
-					<tr>
-						<th>AMOUNT</th>
-						<td>RM<c:out value="${bill.amount}" /></td>
-					</tr>
-					<tr>
-						<th>PAYMENT METHOD</th>
-						<td><c:out value="${payment.method}" /></td>
-					</tr>
-					<tr>
-						<th>REFERENCE ID</th>
-						<td><c:out value="${payment.refid}" /></td>
-					</tr>
+					<form action="UserListController" method="post">
+					<input type="hidden" name="type" value="add">
+							<tr>
+								<th>User Id</th>
+								<input type="hidden" name="userid" value="${kariah.userid}" />
+								<td><c:out value="${kariah.userid}" /></td>
+							</tr>
+							<tr>
+								<th>User Name</th>
+								<td><c:out value="${user.name}" /></td>
+							</tr>
+							<tr>
+								<th>User Email</th>
+								<td><c:out value="${user.email}" /></td>
+							</tr>
+							<tr>
+								<th>Gender</th>
+								<td><c:out value="${kariah.gender}" /></td>
+							</tr>
+							<tr>
+								<th>Phone Number</th>
+								<td><c:out value="${kariah.phoneNo}" /></td>
+							</tr>
+							<tr>
+								<th>Marital Status</th>
+								<td><c:out value="${kariah.maritalstat}" /></td>
+							</tr>
+							<tr>
+								<th>User Death Date</th>
+								<td><div class="col-md-12">
+								<input type="date" class="form-control" name="date">
+							</div></td>
+							</tr>
+							<tr>
+								<th>Active Status</th>
+								<td>
+								<div>
+									<select name="activeStatus" id="activeStatus" class="round3">
+										<option value="<c:out value="${kariah.user.activeStatusNo}" />"><c:out value="${user.activeStatusName}" /></option>
+										<option value="0">Inactive</option>
+										<option value="1">Active</option>
+									</select>
+                                 </div>
+                                 </td>
+                             </tr>
+                             <tr>
+                             <td colspan=2>
+                             	<center><input class="btn btn-primary" type="submit" value="UPDATE"></center>
+                             	</td>
+							 </tr>
+                            </form>
 				</table>
 				<br>
-				<center>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="APPROVE" />" class="btn btn-primary">APPROVE</a>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="REJECT" />" class="btn btn-danger">REJECT</a>
-				</center>
 				
 				<!-- Logout Modal-->
 				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"

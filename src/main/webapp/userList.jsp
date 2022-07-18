@@ -102,11 +102,13 @@ String sesName = (String)session.getAttribute("sessionName");
 					<div class="bg-white py-2 collapse-inner rounded">
 					<a class="collapse-item" href="BillController?action=listBill">Bill List</a>
 					<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
+					<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
+						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
 					</div>
 				</div></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="UserListController">
+			<li class="nav-item"><a class="nav-link" href="UserListController?action=listAllUser">
 					<i class="fas fa-fw fa-table"></i> <span>User List</span>
 			</a></li>
 		</ul>
@@ -163,15 +165,19 @@ String sesName = (String)session.getAttribute("sessionName");
 							<th>Gender</th>
 							<th>Phone No.</th>
 							<th>Marital Status</th>
+							<th>Active Status</th>
+							<th>Actions</th>
 						</tr>
 						<c:forEach items="${kariahs}" var="kariah" varStatus="kariahs">
 							<tr>
 								<td><c:out value="${kariah.userid}" /></td>
-								<td><c:out value="${kariah.username}" /></td>
+								<td><c:out value="${kariah.user.name}" /></td>
 								<td><c:out value="${kariah.user.email}" /></td>
 								<td><c:out value="${kariah.gender}" /></td>
-								<td><c:out value="${kariah.phoneno}" /></td>
+								<td><c:out value="${kariah.phoneNo}" /></td>
 								<td><c:out value="${kariah.maritalstat}" /></td>
+								<td><c:out value="${kariah.user.activeStatus}" /></td>
+								<td><a href="UserListController?action=viewUser&userid=<c:out value="${kariah.userid}" />&activeStatus=<c:out value="${kariah.user.activeStatus}" />" class="btn btn-primary">VIEW</a></td>
 							</tr>
 						</c:forEach>
 					</table>

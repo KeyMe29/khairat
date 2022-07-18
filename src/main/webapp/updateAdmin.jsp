@@ -102,6 +102,8 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 					<div class="bg-white py-2 collapse-inner rounded"> 
 						<a class="collapse-item" href="BillController?action=listBill">Bill List</a> 
 						<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
+						<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
+						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
 					</div>
 				</div></li>
 
@@ -137,7 +139,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out
-										value="${staff.name}" /></span> <img
+										value="${user.name}" /></span> <img
 								class="img-profile rounded-circle" src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -160,7 +162,14 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							<div class="col-md-12">
 								<label class="labels">STAFF NAME</label><input type="text"
 									class="form-control" id="name" name="name"
-									value="<c:out value="${staff.name}"/>" >
+									value="<c:out value="${user.name}"/>" >
+							</div>
+						</tr>
+						<tr>
+							<div class="col-md-12">
+								<label class="labels">STAFF EMAIL</label><input type="text"
+									class="form-control" id="email" name="email"
+									value="<c:out value="${user.email}"/>" >
 							</div>
 						</tr>
 						<tr>
