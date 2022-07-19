@@ -110,6 +110,9 @@ int sessionId = (Integer)session.getAttribute("sessionId");
 			<li class="nav-item"><a class="nav-link" href="UserListController?action=listAllUser">
 					<i class="fas fa-fw fa-table"></i> <span>User List</span>
 			</a></li>
+			<li class="nav-item"><a class="nav-link" href="UserListController?action=displayactivekariah">
+					<i class="fas fa-fw fa-table"></i> <span>Active Kariah List</span>
+			</a></li>
 		</ul>
 		<!-- End of Sidebar -->
 		<!-- Content Wrapper -->

@@ -115,6 +115,10 @@ public class UserListController extends HttpServlet {
 			request.setAttribute("kariah", KariahDAO.getKariahById(kUid));
 			request.setAttribute("kariahs", KariahDAO.getAllUserKariah());
 		}
+		if(action.equalsIgnoreCase("displayactivekariah")){
+			forward = "displayactivekariah.jsp";
+			
+		}
 		view = request.getRequestDispatcher(forward);
 		view.forward(request, response);
 	}
