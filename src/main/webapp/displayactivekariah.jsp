@@ -65,7 +65,7 @@ String sesName = (String)session.getAttribute("sessionName");
 <script>
 	window.onload = function() {
 		var request = new XMLHttpRequest();
-		request.open("GET", "https://floating-hamlet-51262.herokuapp.com/display", true);
+		request.open("GET", "https://floating-hamlet-51262.herokuapp.com/displayactivekariah", true);
 		request.onload = function() {
 			var members_obj = JSON.parse(this.response);
 
@@ -76,15 +76,15 @@ String sesName = (String)session.getAttribute("sessionName");
 				if (i === 0) {
 					row.style.fontWeight = 'bold';
 					var cell0 = row.insertCell(0).innerHTML = 'User ID';
-					var cell1 = row.insertCell(2).innerHTML = 'Username';
-					var cell2 = row.insertCell(3).innerHTML = 'Email';
-					var cell3 = row.insertCell(4).innerHTML = 'User Type';
-					var cell4 = row.insertCell(5).innerHTML = 'IC No.';
-					var cell5 = row.insertCell(6).innerHTML = 'Date of Birth';
-					var cell6 = row.insertCell(7).innerHTML = 'Phone No.';
-					var cell7 = row.insertCell(8).innerHTML = 'Marital Status';
-					var cell8 = row.insertCell(9).innerHTML = 'Gender';
-					var cell9 = row.insertCell(10).innerHTML = 'Kariah of Mosque';
+					var cell1 = row.insertCell(1).innerHTML = 'Username';
+					var cell2 = row.insertCell(2).innerHTML = 'Email';
+					var cell3 = row.insertCell(3).innerHTML = 'User Type';
+					var cell4 = row.insertCell(4).innerHTML = 'IC No.';
+					var cell5 = row.insertCell(5).innerHTML = 'Date of Birth';
+					var cell6 = row.insertCell(6).innerHTML = 'Phone No.';
+					var cell7 = row.insertCell(7).innerHTML = 'Marital Status';
+					var cell8 = row.insertCell(8).innerHTML = 'Gender';
+					var cell9 = row.insertCell(9).innerHTML = 'Kariah of Mosque';
 
 				} else {
 					var cell0 = row.insertCell(0);
@@ -98,16 +98,16 @@ String sesName = (String)session.getAttribute("sessionName");
 					var cell8 = row.insertCell(8);
 					var cell9 = row.insertCell(9);
 
-					cell0.innerHTML = members_obj[i].USERID;
-					cell1.innerHTML = members_obj[i].NAME;
-					cell2.innerHTML = members_obj[i].EMAIL;
-					cell3.innerHTML = members_obj[i].USER_TYPE;
-					cell4.innerHTML = members_obj[i].ICNO;
-					cell5.innerHTML = members_obj[i].DOB;
-					cell6.innerHTML = members_obj[i].PHONENO;
-					cell7.innerHTML = members_obj[i].MARITALSTAT;
-					cell8.innerHTML = members_obj[i].GENDER;
-					cell9.innerHTML = members_obj[i].MOSQUENAME;
+					cell0.innerHTML = members_obj[i].userid;
+					cell1.innerHTML = members_obj[i].name;
+					cell2.innerHTML = members_obj[i].email;
+					cell3.innerHTML = members_obj[i].user_type;
+					cell4.innerHTML = members_obj[i].icNo;
+					cell5.innerHTML = members_obj[i].dob;
+					cell6.innerHTML = members_obj[i].phoneNo;
+					cell7.innerHTML = members_obj[i].maritalStat;
+					cell8.innerHTML = members_obj[i].gender;
+					cell9.innerHTML = members_obj[i].mosqueName;
 				}
 			}
 			document.getElementById('customers').appendChild(table);
