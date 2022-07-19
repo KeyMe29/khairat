@@ -9,8 +9,9 @@ response.setDateHeader("Expires", 0);
 if (session.getAttribute("sessionEmail") == null)
 	response.sendRedirect("/khairat/login.jsp");
 
+String sesRol = "";
 if(session.getAttribute("sessionRole") != null){
-	String sesRol = (String)session.getAttribute("sessionRole");
+	sesRol = (String)session.getAttribute("sessionRole");
 	if (sesRol.equalsIgnoreCase("admin"))
 		response.sendRedirect("/khairat/login.jsp");
 }
@@ -18,7 +19,6 @@ int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -31,15 +31,14 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-</head>
+
 <style>
 #customers {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 50%;
+	width: 100%;
 }
 
 #customers td, #customers th {
@@ -47,18 +46,23 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 	padding: 8px;
 }
 
+#customers tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
 #customers tr:hover {
 	background-color: #ddd;
 }
 
 #customers th {
-	padding-top: 15px;
+	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
 	background-color: #2a8ffa;
 	color: white;
 }
 </style>
+</head>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -87,15 +91,14 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 			<div class="sidebar-heading">Menu</div>
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> 
-			<i class="fas fa-fw fa-tachometer-alt"></i> <span>User Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item active"><a class="nav-link" href="#"
-				data-toggle="collapse" data-target="#collapsePages"
-				aria-expanded="true" aria-controls="collapsePages"> <i
-					class="fas fa-fw fa-folder"></i> <span>Pages</span>
+			<li class="nav-item"><a class="nav-link"
+				href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>User Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item active">
+			<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages"aria-expanded="true" aria-controls="collapsePages"> 
+			<i class="fas fa-fw fa-folder"></i> <span>Pages</span>
 			</a>
-				<div id="collapsePages" class="collapse show"
-					aria-labelledby="headingPages" data-parent="#accordionSidebar">
+				<div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 					<a class="collapse-item" href="PaymentController?action=listPayment&userid=<%= sessionId %>">Payment List</a>
 					<a class="collapse-item" href="DependentController?action=listDependent&userid=<%= sessionId %>">Dependent List</a>
@@ -140,71 +143,81 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 									Logout
 								</a>
 							</div></li>
+
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
-
-				<div class="container">
-				<h1 align="center">KARIAH DETAILS</h1>
-				<br>
-
-					<table id="customers" align="center">
-						<tr>
-							<th>Full Name</th>
-							<td><c:out value="${user.name}" /></td>
-						</tr>
-						<tr>
-							<th>IC No.</th>
-							<td><c:out value="${kariah.icNo}" /></td>
-						</tr>
-						<tr>
-							<th>Date of Birth</th>
-							<td><c:out value="${kariah.dob}" /></td>
-						</tr>
-						<tr>
-							<th>Address</th>
-							<td><c:out value="${kariah.address}" /></td>
-						</tr>
-						<tr>
-							<th>Phone No</th>
-							<td>60<c:out value="${kariah.phoneNo}" /></td>
-						</tr>
-						<tr>
-							<th>Marital Status</th>
-							<td><c:out value="${kariah.maritalstat}" /></td>
-						</tr>
-						<tr>
-							<th>Gender</th>
-							<td><c:out value="${kariah.gender}" /></td>
-						</tr>
-					</table>
+					<div class="container">
+<br>
+<fieldset>
+<legend><h1 align="center">DEPENDENT LIST</h1></legend>
+<br><br>
+<a href="addDependent.jsp" class="btn btn-success" style="float:right">ADD DEPENDENT</a><br><br>
+<table style="width:100%">
+  <tr>
+    <th>Dependent Id</th>
+    <th>Dependent Name</th>
+    <th>Ic No</th>
+    <th>Gender</th> 
+    <th>Phone No</th> 
+    <th>Relation</th> 
+    <th colspan="3">Actions</th>
+  </tr>
+ <c:forEach items="${dependents}" var="dependent" varStatus="dependents">
+  <tr>
+    <td><c:out value="${dependent.depid}" /></td>
+    <td><c:out value="${dependent.depName}" /></td>
+    <td><c:out value="${dependent.depIcNo}" /></td>       
+    <td><c:out value="${dependent.depGender}" /></td>
+    <td><c:out value="${dependent.depPhoneNo}" /></td>
+    <td><c:out value="${dependent.relation}" /></td>
+    <td><a href="DependentController?action=viewDependent&depid=<c:out value="${dependent.depid}" />&userid=<c:out value="${dependent.userid}" />" class="btn btn-warning">View</a></td>
+    <td><a href="DependentController?action=updateDependent&depid=<c:out value="${dependent.depid}" />" class="btn btn-primary">Update</a></td>    
+    <td><input type="hidden" id="depid-${dependents.index}" value="<c:out value="${dependent.depid}"/>"><button class="btn btn-danger" onclick="confirmation('${dependents.index}')">Delete</button></td>    
+  </c:forEach>
+</table>
+</fieldset>
+</div>
 					<br>
-				<a href="KariahController?action=updateKariah&userid=<%=sessionId %>&email=<%=sesEmail %>"
-					class="btn btn-primary" style="float: right">UPDATE</a>
 				</div>
-				
-				<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">X</span>
-								</button>
-							</div>
-							<div class="modal-body">Select "Logout" below if you are
-								ready to end your current session.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button"
-									data-dismiss="modal">Cancel</button>
-								<a class="btn btn-primary" href="LogoutController">Logout</a>
+					<!-- Logout Modal-->
+					<div class="modal fade" id="logoutModal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Ready to
+										Leave?</h5>
+									<button class="close" type="button" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">X</span>
+									</button>
+								</div>
+								<div class="modal-body">Select "Logout" below if you are
+									ready to end your current session.</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary" type="button"
+										data-dismiss="modal">Cancel</button>
+									<a class="btn btn-primary" href="LogoutController">Logout</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-
+	<script>
+		function confirmation(index){
+			  var depid = $("#depid-" + index).val();
+			 
+			  console.log(depid);
+			  var r = confirm("Are you sure you want to delete?");
+			  if (r == true) {				 		  
+				  location.href = 'DependentController?action=deleteDependent&depid=' + depid;
+				  alert("Dependent successfully deleted");			
+			  } else {				  
+			      return false;	
+			  }
+		}
+	</script>
 				<!-- Bootstrap core JavaScript-->
 				<script src="vendor/jquery/jquery.min.js"></script>
 				<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -214,5 +227,5 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 
 				<!-- Custom scripts for all pages-->
 				<script src="js/sb-admin-2.min.js"></script>
-</body>
+			</body>
 </html>

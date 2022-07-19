@@ -16,6 +16,7 @@ if(session.getAttribute("sessionRole") != null){
 }
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
+String sesName = (String)session.getAttribute("sessionName");
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -31,34 +32,9 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
-<style>
-#customers {
-	font-family: Arial, Helvetica, sans-serif;
-	border-collapse: collapse;
-	width: 50%;
-}
-
-#customers td, #customers th {
-	border: 1px solid #ddd;
-	padding: 8px;
-}
-
-#customers tr:hover {
-	background-color: #ddd;
-}
-
-#customers th {
-	padding-top: 15px;
-	padding-bottom: 12px;
-	text-align: left;
-	background-color: #2a8ffa;
-	color: white;
-}
-</style>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -87,8 +63,9 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 			<div class="sidebar-heading">Menu</div>
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> 
-			<i class="fas fa-fw fa-tachometer-alt"></i> <span>User Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link"
+				href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>User Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item active"><a class="nav-link" href="#"
 				data-toggle="collapse" data-target="#collapsePages"
 				aria-expanded="true" aria-controls="collapsePages"> <i
@@ -128,7 +105,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${user.name}" /></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sesName %></span> <img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -140,71 +117,120 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 									Logout
 								</a>
 							</div></li>
+
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
+				<!-- Custom styles for this template-->
+				<link href="css/sb-admin-2.min.css" rel="stylesheet">
+				<style>
+::-webkit-scrollbar {
+	width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
 
-				<div class="container">
-				<h1 align="center">KARIAH DETAILS</h1>
-				<br>
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
 
-					<table id="customers" align="center">
-						<tr>
-							<th>Full Name</th>
-							<td><c:out value="${user.name}" /></td>
-						</tr>
-						<tr>
-							<th>IC No.</th>
-							<td><c:out value="${kariah.icNo}" /></td>
-						</tr>
-						<tr>
-							<th>Date of Birth</th>
-							<td><c:out value="${kariah.dob}" /></td>
-						</tr>
-						<tr>
-							<th>Address</th>
-							<td><c:out value="${kariah.address}" /></td>
-						</tr>
-						<tr>
-							<th>Phone No</th>
-							<td>60<c:out value="${kariah.phoneNo}" /></td>
-						</tr>
-						<tr>
-							<th>Marital Status</th>
-							<td><c:out value="${kariah.maritalstat}" /></td>
-						</tr>
-						<tr>
-							<th>Gender</th>
-							<td><c:out value="${kariah.gender}" /></td>
-						</tr>
-					</table>
-					<br>
-				<a href="KariahController?action=updateKariah&userid=<%=sessionId %>&email=<%=sesEmail %>"
-					class="btn btn-primary" style="float: right">UPDATE</a>
-				</div>
-				
-				<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">X</span>
-								</button>
-							</div>
-							<div class="modal-body">Select "Logout" below if you are
-								ready to end your current session.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button"
-									data-dismiss="modal">Cancel</button>
-								<a class="btn btn-primary" href="LogoutController">Logout</a>
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+body {
+	background: rgb(99, 39, 120)
+}
+
+.back:hover {
+	color: #682773;
+	cursor: pointer
+}
+
+.add-experience:hover {
+	background: #BA68C8;
+	color: #fff;
+	cursor: pointer;
+	border: solid 1px #BA68C8
+}
+</style>
+				</head>
+
+				<!-- Begin Page Content -->
+				<!-- /.container-fluid -->
+				<div class="container rounded bg-white" align="center">
+					<div class="p-1 py-5">
+						<h1 align="center">ADD DEPENDENT</h1>
+					</div>
+					<form action="DependentController" method="post"> 
+					<input type="hidden" name="userid" value="<%= sessionId %>">
+						<div class="col-md-3">
+								<label class="labels">DEPENDENT NAME</label><input type="text"
+									class="form-control" name="depName" required>
+						</div>
+						<div class="col-md-3">
+								<label class="labels">IC NO</label><input type="text"
+									class="form-control" name="depIcNo" required>
+						</div>
+						<div class="col-md-12">
+							<label class="labels">GENDER</label>
+						</div>
+						<select type="dropdown" name="depGender" id="depGender"
+							style="color: grey; border-radius: 8px; background-color: white; padding: 13px; border: 1px solid #ccc;">
+							<option value="">SELECT GENDER</option>
+							<option value="MALE">MALE
+							<option value="FEMALE">FEMALE
+						</select>
+						<div class="col-md-3">
+								<label class="labels">PHONE NO</label><input type="text"
+									class="form-control" name="depPhoneNo" required>
+						</div>
+						<div class="col-md-12">
+							<label class="labels">RELATION</label>
+						</div>
+						<select type="dropdown" name="relation" id="relation"
+							style="color: grey; border-radius: 8px; background-color: white; padding: 13px; border: 1px solid #ccc;">
+							<option value="">SELECT RELATION</option>
+							<option value="CHILD">CHILD
+							<option value="SIBLING">SIBLING
+							<option value="PARENT">PARENT
+							<option value="GRANDPARENT">GRANDPARENT
+						</select><br>
+						</br> <input class="btn btn-primary" type="submit"
+							value="SUBMIT"">
+							<br>
+							<br>
+					</form>
+					<!-- End Page Content -->
+					<!-- Logout Modal-->
+					<div class="modal fade" id="logoutModal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Ready to
+										Leave?</h5>
+									<button class="close" type="button" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">X</span>
+									</button>
+								</div>
+								<div class="modal-body">Select "Logout" below if you are
+									ready to end your current session.</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary" type="button"
+										data-dismiss="modal">Cancel</button>
+									<a class="btn btn-primary" href="LogoutController">Logout</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<!-- Bootstrap core JavaScript-->
 				<script src="vendor/jquery/jquery.min.js"></script>
 				<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -214,5 +240,5 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 
 				<!-- Custom scripts for all pages-->
 				<script src="js/sb-admin-2.min.js"></script>
-</body>
+		</body>
 </html>

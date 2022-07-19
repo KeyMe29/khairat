@@ -16,8 +16,8 @@ public class DependentDAO {
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
 	static Statement stmt = null;
-    int depid, userid;
-	String depName,depIcNo,depGender,depPhoneNo,depDeathDate,relation;
+    static int depid, userid;
+	static String depName,depIcNo,depGender,depPhoneNo,depDeathDate,relation;
 	
 	
 	
@@ -29,7 +29,6 @@ public class DependentDAO {
 		depIcNo= bean.getDepIcNo();
 		depGender = bean.getDepGender();
 		depPhoneNo = bean.getDepPhoneNo();
-		depDeathDate = bean.getDepDeathDate();
 		relation = bean.getRelation();
 		userid = bean.getUserid();
 		
@@ -38,15 +37,14 @@ public class DependentDAO {
 			con = ConnectionManager.getConnection();
 			
 			//3. create statement
-			String sql = "INSERT INTO dependent(depName,depIcNo,depGender,depPhoneNo,depDeathDate,relation,userid)VALUES(?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO dependent(depName,depIcNo,depGender,depPhoneNo,relation,userid)VALUES(?,?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, depName);
 			ps.setString(2, depIcNo);
 			ps.setString(3, depGender);
 			ps.setString(4, depPhoneNo);
-			ps.setString(5, depDeathDate);
-			ps.setString(6, relation);
-			ps.setInt(7, userid);
+			ps.setString(5, relation);
+			ps.setInt(6, userid);
 			
 			
 			//4. execute query
@@ -156,7 +154,7 @@ public class DependentDAO {
 					dep.setDepIcNo(rs.getString("depIcNo"));
 					dep.setDepGender(rs.getString("depGender"));
 					dep.setDepPhoneNo(rs.getString("depPhoneNo"));
-					dep.setDepDeathDate(rs.getString("date"));
+					dep.setDepDeathDate(rs.getString("depDeathDate"));
 					dep.setRelation(rs.getString("relation"));
 					dep.setUserid(rs.getInt("userid"));
 					dep.setKariah(KariahDAO.getKariahById(rs.getInt("userid")));
@@ -175,23 +173,17 @@ public class DependentDAO {
 	public void updateDependent(Dependent bean) {
 		//get bill 
 		depid=bean.getDepid();
-		depName = bean.getDepName();
 		depPhoneNo = bean.getDepPhoneNo();
-		depDeathDate = bean.getDepDeathDate();
-		relation = bean.getRelation();
 		
 		try {
 			//call getConnection() method from ConnectionManager class
 			con = ConnectionManager.getConnection();
 			
 			//3. create statement
-			String sql = "UPDATE dependent SET depName=?, depPhoneNo=?, depDeathDate=?, relation=? WHERE depid=?";
+			String sql = "UPDATE dependent SET depPhoneNo=? WHERE depid=?";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, depName);
-			ps.setString(2, depPhoneNo);
-			ps.setString(3, depDeathDate);
-			ps.setString(4, relation);
-			ps.setInt(5, depid);
+			ps.setString(1, depPhoneNo);
+			ps.setInt(2, depid);
 			
 			//4. execute query
 			ps.executeUpdate();

@@ -9,13 +9,14 @@ response.setDateHeader("Expires", 0);
 if (session.getAttribute("sessionEmail") == null)
 	response.sendRedirect("/khairat/login.jsp");
 
-if(session.getAttribute("sessionRole") != null){
+/*if(session.getAttribute("sessionRole") != null){
 	String sesRol = (String)session.getAttribute("sessionRole");
 	if (sesRol.equalsIgnoreCase("admin"))
 		response.sendRedirect("/khairat/login.jsp");
-}
+}*/
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
+String sesName = (String)session.getAttribute("sessionName");
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -128,7 +129,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${user.name}" /></span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sesName %></span> <img class="img-profile rounded-circle"
 								src="img/undraw_profile.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -144,44 +145,36 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 				</nav>
 				<!-- End of Topbar -->
 
-				<div class="container">
-				<h1 align="center">KARIAH DETAILS</h1>
+
+				<h1 align="center">DEPENDENT DETAILS</h1>
 				<br>
 
-					<table id="customers" align="center">
-						<tr>
-							<th>Full Name</th>
-							<td><c:out value="${user.name}" /></td>
-						</tr>
-						<tr>
-							<th>IC No.</th>
-							<td><c:out value="${kariah.icNo}" /></td>
-						</tr>
-						<tr>
-							<th>Date of Birth</th>
-							<td><c:out value="${kariah.dob}" /></td>
-						</tr>
-						<tr>
-							<th>Address</th>
-							<td><c:out value="${kariah.address}" /></td>
-						</tr>
-						<tr>
-							<th>Phone No</th>
-							<td>60<c:out value="${kariah.phoneNo}" /></td>
-						</tr>
-						<tr>
-							<th>Marital Status</th>
-							<td><c:out value="${kariah.maritalstat}" /></td>
-						</tr>
-						<tr>
-							<th>Gender</th>
-							<td><c:out value="${kariah.gender}" /></td>
-						</tr>
-					</table>
-					<br>
-				<a href="KariahController?action=updateKariah&userid=<%=sessionId %>&email=<%=sesEmail %>"
-					class="btn btn-primary" style="float: right">UPDATE</a>
-				</div>
+				<table id="customers" align="center">
+					<tr>
+						<th>DEPENDENT ID</th>
+						<td><c:out value="${dependent.depid}" /></td>
+					</tr>
+					<tr>
+						<th>DEPENDENT NAME</th>
+						<td><c:out value="${dependent.depName}" /></td>
+					</tr>
+					<tr>
+						<th>IC NO</th>
+						<td><c:out value="${dependent.depIcNo}" /></td>
+					</tr>
+					<tr>
+						<th>GENDER</th>
+						<td><c:out value="${dependent.depGender}" /></td>
+					</tr>
+					<tr>
+						<th>PHONE NO</th>
+						<td><c:out value="${dependent.depPhoneNo}" /></td>
+					</tr>
+					<tr>
+						<th>RELATION</th>
+						<td><c:out value="${dependent.relation}" /></td>
+					</tr>
+				</table>
 				
 				<!-- Logout Modal-->
 				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
