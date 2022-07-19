@@ -1,5 +1,6 @@
 package khairat.dao;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.*;
 import khairat.connection.ConnectionManager;
@@ -13,9 +14,44 @@ public class KariahDAO {
 	static ResultSet rs = null; 
 	static PreparedStatement ps=null;
 	static Statement stmt=null;
-	static String maritalstat, gender, icNo, dob, address, phoneNo, userDeathDate;
+	static String maritalStat, gender, icNo, dob, address, phoneNo, userDeathDate;
 	static int id, mosqueId;
 
+	public void addKariah(Kariah bean) throws NoSuchAlgorithmException{
+
+		id = bean.getUserid();
+		icNo = bean.getIcNo();
+		dob = bean.getDob();
+		address = bean.getAddress();
+		phoneNo = bean.getPhoneNo();
+		maritalStat = bean.getMaritalstat();	
+		gender = bean.getGender();
+		mosqueId = bean.getMosqueId(); 
+
+		try {
+			//call getConnection() method 
+			con = ConnectionManager.getConnection();
+			//3. create statement  
+			ps=con.prepareStatement("insert into kariah(userid,icNo,dob,address,phoneNo,maritalStat,gender,mosqueId)values(?,?,?,?,?,?,?,?)");
+			ps.setInt(1, id);
+			ps.setString(2, icNo);
+			ps.setString(3, dob);
+			ps.setString(4, address);
+			ps.setString(5, phoneNo);
+			ps.setString(6, maritalStat);
+			ps.setString(7, gender);
+			ps.setInt(8, mosqueId);
+			
+			//4. execute query
+			ps.executeUpdate();			
+
+			//5. close connection
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();		
+		}
+	}
+	
 	public static List<Kariah> getAllKariah() {
 		List<Kariah> kariahs = new ArrayList<Kariah>();
 		try {
@@ -40,7 +76,7 @@ public class KariahDAO {
 				kariahs.add(kariah);
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();		
 		}
@@ -71,7 +107,7 @@ public class KariahDAO {
 				kariah.setMosque(MosqueDAO.getmosqueById(rs.getInt("mosqueId")));
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		
@@ -85,7 +121,7 @@ public class KariahDAO {
 		id = bean.getUserid();
 		address = bean.getAddress();
 		phoneNo = bean.getPhoneNo();
-		maritalstat = bean.getMaritalstat();	
+		maritalStat = bean.getMaritalstat();	
 		userDeathDate = bean.getUserDeathDate();
 		mosqueId = bean.getMosqueId();
 
@@ -96,7 +132,7 @@ public class KariahDAO {
 			ps=con.prepareStatement("update kariah set address=?,phoneNo=?,maritalstat=?,userDeathDate=?,mosqueId=? WHERE userid=?"); 		  
 			ps.setString(1,address);//1 specifies the first parameter in the query i.e. name
 			ps.setString(2, phoneNo);
-			ps.setString(3,maritalstat);		
+			ps.setString(3,maritalStat);		
 			ps.setString(4,userDeathDate);
 			ps.setInt(5,mosqueId);
 			ps.setInt(6,id);
@@ -160,7 +196,7 @@ public class KariahDAO {
 				kariahs.add(kariah);
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();		
 		}

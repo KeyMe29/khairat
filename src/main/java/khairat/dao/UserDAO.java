@@ -181,7 +181,7 @@ public class UserDAO {
 
 				}
 				//5. close connection
-				con.close();
+				//con.close();
 			}catch(Exception e) {
 				e.printStackTrace();		
 			}
@@ -218,7 +218,7 @@ public class UserDAO {
 
 				}
 				//5. close connection
-				con.close();
+				//con.close();
 			}catch(Exception e) {
 				e.printStackTrace();		
 			}
@@ -247,7 +247,7 @@ public class UserDAO {
 
 				}
 				//5. close connection
-				con.close();
+				//con.close();
 			}catch(Exception e) {
 				e.printStackTrace();		
 			}

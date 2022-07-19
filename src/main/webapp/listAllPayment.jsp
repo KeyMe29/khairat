@@ -306,50 +306,6 @@ String sesName = (String)session.getAttribute("sessionName");
                    </div>
                 <!-- /.container-fluid -->
 				<div class="container">
-					<h1 align="center">PAYMENT LIST</h1><br><br>
-
-					<table id="customers">
-						<tr>
-							<th>USER ID</th>
-							<th>METHOD</th>
-							<th>PAYMENT STATUS</th>
-							<th colspan="3">ACTIONS</th>
-						</tr>
-						<c:forEach items="${payments}" var="payment" varStatus="payments">
-						<c:if test="${fn:contains(payment.payStatus, 'A') }"> <!-- display approved only -->
-							<tr>
-								<td><c:out value="${payment.userid}" /></td>
-								<td><c:out value="${payment.method}" /></td>
-								<td><c:out value="${payment.payStatus}" /></td>
-								<td><a
-									href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
-									class="btn btn-warning">VIEW PAYMENT DETAILS</a></td>
-							</tr>
-						</c:if>
-						</c:forEach>
-					</table><br><br>
-					
-					<table id="customers">
-						<tr>
-							<th>USER ID</th>
-							<th>METHOD</th>
-							<th>PAYMENT STATUS</th>
-							<th colspan="3">ACTIONS</th>
-						</tr>
-						<c:forEach items="${payments}" var="payment" varStatus="payments">
-						<c:if test="${fn:contains(payment.payStatus, 'P') }"> <!-- display approved only -->
-							<tr>
-								<td><c:out value="${payment.userid}" /></td>
-								<td><c:out value="${payment.method}" /></td>
-								<td><c:out value="${payment.payStatus}" /></td>
-								<td><a
-									href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
-									class="btn btn-warning">VIEW PAYMENT DETAILS</a></td>
-							</tr>
-						</c:if>
-						</c:forEach>
-					</table>
-					
 
 					<!-- Logout Modal-->
 					<div class="modal fade" id="logoutModal" tabindex="-1"
@@ -374,6 +330,7 @@ String sesName = (String)session.getAttribute("sessionName");
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 
 					<!-- Bootstrap core JavaScript-->

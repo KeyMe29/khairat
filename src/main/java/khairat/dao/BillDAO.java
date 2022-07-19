@@ -109,7 +109,7 @@ public class BillDAO {
 			}
 			
 			//5. close connection
-			con.close();
+			//con.close();
 			
 		}catch(Exception e) {
 			e.printStackTrace();

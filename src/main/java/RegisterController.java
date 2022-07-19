@@ -82,7 +82,7 @@ public class RegisterController extends HttpServlet {
 					User us = UserDAO.getUserByEmail(user.getEmail());
 					int tempUserid = us.getUserid();
 					kariah.setUserid(tempUserid);
-					kdao.updateKariah(kariah);
+					kdao.addKariah(kariah);
 
 				}catch (Exception e) {
 					e.printStackTrace();

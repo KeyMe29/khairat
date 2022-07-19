@@ -62,7 +62,7 @@ public class MosqueDAO {
 				mosques.add(mosque);
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();		
 		}
@@ -87,7 +87,7 @@ public class MosqueDAO {
 				mosque.setSupervisorId(rs.getInt("supervisorId"));
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		
@@ -115,7 +115,7 @@ public class MosqueDAO {
 				mosque.setSuperv(MosqueDAO.getmosqueById(rs.getInt("supervisorId")));
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		

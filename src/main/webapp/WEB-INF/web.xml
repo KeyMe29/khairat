@@ -9,4 +9,93 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+	<servlet-name>User List</servlet-name>
+	<servlet-class>UserListController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>User List</servlet-name>
+  	<url-pattern>User List</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Login</servlet-name>
+	<servlet-class>LoginController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Login</servlet-name>
+  	<url-pattern>Login</url-pattern>
+  </servlet-mapping>
+   <servlet>
+	<servlet-name>Logout</servlet-name>
+	<servlet-class>LogoutController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Logout</servlet-name>
+  	<url-pattern>Logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Register User</servlet-name>
+	<servlet-class>RegisterController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Register User</servlet-name>
+  	<url-pattern>Register User</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Register Admin</servlet-name>
+	<servlet-class>AdminRegisterController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Register Admin</servlet-name>
+  	<url-pattern>Register Admin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Kariah</servlet-name>
+	<servlet-class>KariahController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Kariah</servlet-name>
+  	<url-pattern>Kariah</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Admin</servlet-name>
+	<servlet-class>AdminController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Admin</servlet-name>
+  	<url-pattern>Admin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Dependent</servlet-name>
+	<servlet-class>DependentController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Dependent</servlet-name>
+  	<url-pattern>Dependent</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Bill</servlet-name>
+	<servlet-class>BillController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Bill</servlet-name>
+  	<url-pattern>Bill</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Payment</servlet-name>
+	<servlet-class>PaymentController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Payment</servlet-name>
+  	<url-pattern>Payment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>Mosque</servlet-name>
+	<servlet-class>MosqueController</servlet-class>  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Mosque</servlet-name>
+  	<url-pattern>Mosque</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

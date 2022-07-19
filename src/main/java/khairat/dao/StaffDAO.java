@@ -1,10 +1,13 @@
 package khairat.dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import khairat.connection.ConnectionManager;
 import khairat.model.Staff;
+import khairat.model.User;
 
 public class StaffDAO {
 
@@ -14,6 +17,28 @@ public class StaffDAO {
 	static Statement stmt=null;
 	String name, position;
 	int staffid; 	
+
+	public void addStaff(Staff bean) throws NoSuchAlgorithmException{
+
+		staffid = bean.getStaffid();
+		position = bean.getPosition();
+
+		try {
+			//call getConnection() method 
+			con = ConnectionManager.getConnection();
+			//3. create statement  
+			ps=con.prepareStatement("insert into admin(userid,admin_position)values(?,?)");
+			ps.setInt(1, staffid);
+			ps.setString(2, position);
+			//4. execute query
+			ps.executeUpdate();			
+
+			//5. close connection
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();		
+		}
+	}
 
 	//get all staff
 	public static List<Staff> getAllStaff() {

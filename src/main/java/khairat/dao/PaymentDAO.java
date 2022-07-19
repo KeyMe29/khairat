@@ -125,7 +125,7 @@ public class PaymentDAO {
 			}
 			
 			//5. close connection
-			con.close();
+			//con.close();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -160,7 +160,7 @@ public class PaymentDAO {
 				
 				payments.add(payment);
 			}
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

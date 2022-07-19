@@ -70,8 +70,8 @@ public class AdminRegisterController extends HttpServlet {
 				dao.add(user);
 				User us = UserDAO.getUserByEmail(user.getEmail());
 				int tempUserid = us.getUserid();
-				staff.setUserid(tempUserid);
-				sdao.updateStaff(staff);
+				staff.setStaffid(tempUserid);
+				sdao.addStaff(staff);
 
 			}catch (Exception e) {
 				e.printStackTrace();

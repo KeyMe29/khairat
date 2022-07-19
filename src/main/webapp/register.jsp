@@ -64,6 +64,10 @@
                                     <input type="tel" class="form-control form-control-user" id="phoneno"
                                         placeholder="Enter Your Phone Number" name="phoneno" required>      
                                 </div>
+								<p> Date of Birth :
+                                <div class="form-group">
+                                	<input type="date" class="form-control" name="dob" required>      
+                                </div>
                                 <p>Marital Status :</p>
                                  <div class="form-check">
                                     <label class="form-check-label" for="maritalstat">
