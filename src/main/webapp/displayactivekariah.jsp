@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%--
+<%
 response.addHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 response.addHeader("Cache-Control", "pre-check=0, post-check=0");
@@ -17,13 +17,12 @@ if(session.getAttribute("sessionRole") != null){
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
---%>
+%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>KARIAH & DEATH BENEFICIARY SYSTEM</title>
+<title>KARIAH and DEATH BENEFICIARY SYSTEM</title>
 <meta charset="UTF-8">
 <meta charset="ISO-8859-1">
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -63,57 +62,60 @@ String sesName = (String)session.getAttribute("sessionName");
 }
 </style>
 <script>
-	window.onload = function() {
-		var request = new XMLHttpRequest();
-		request.open("GET", "https://floating-hamlet-51262.herokuapp.com/displayactivekariah", true);
-		request.onload = function() {
-			var members_obj = JSON.parse(this.response);
+window.onload = function () {
+    var request = new XMLHttpRequest();
+    request.open("GET", "https://floating-hamlet-51262.herokuapp.com/displayactivekariah", true);
+    request.onload = function () {
+      var members_obj = JSON.parse(this.response);
 
-			var table = document.createElement('customers');
+      var table = document.createElement('table');
 
-			for (var i = 0; i < members_obj.length; i++) {
-				var row = table.insertRow(i);
-				if (i === 0) {
-					row.style.fontWeight = 'bold';
-					var cell0 = row.insertCell(0).innerHTML = 'User ID';
-					var cell1 = row.insertCell(1).innerHTML = 'Username';
-					var cell2 = row.insertCell(2).innerHTML = 'Email';
-					var cell3 = row.insertCell(3).innerHTML = 'User Type';
-					var cell4 = row.insertCell(4).innerHTML = 'IC No.';
-					var cell5 = row.insertCell(5).innerHTML = 'Date of Birth';
-					var cell6 = row.insertCell(6).innerHTML = 'Phone No.';
-					var cell7 = row.insertCell(7).innerHTML = 'Marital Status';
-					var cell8 = row.insertCell(8).innerHTML = 'Gender';
-					var cell9 = row.insertCell(9).innerHTML = 'Kariah of Mosque';
+      for (var i = 0; i < members_obj.length; i++) {
+        var row = table.insertRow(i);
+        if (i === 0) {
+          row.style.fontWeight = 'bold';
+          var cell0 = row.insertCell(0).innerHTML = 'User ID';
+			var cell1 = row.insertCell(1).innerHTML = 'Username';
+			var cell2 = row.insertCell(2).innerHTML = 'Email';
+			var cell3 = row.insertCell(3).innerHTML = 'User Type';
+			var cell4 = row.insertCell(4).innerHTML = 'IC No.';
+			var cell5 = row.insertCell(5).innerHTML = 'Date of Birth';
+			var cell6 = row.insertCell(6).innerHTML = 'Phone No.';
+			var cell7 = row.insertCell(7).innerHTML = 'Marital Status';
+			var cell8 = row.insertCell(8).innerHTML = 'Gender';
+			var cell9 = row.insertCell(9).innerHTML = 'Kariah of Mosque';
 
-				} else {
-					var cell0 = row.insertCell(0);
-					var cell1 = row.insertCell(1);
-					var cell2 = row.insertCell(2);
-					var cell3 = row.insertCell(3);
-					var cell4 = row.insertCell(4);
-					var cell5 = row.insertCell(5);
-					var cell6 = row.insertCell(6);
-					var cell7 = row.insertCell(7);
-					var cell8 = row.insertCell(8);
-					var cell9 = row.insertCell(9);
+         
+        }
+        else {
+          var cell0 = row.insertCell(0);
+          var cell1 = row.insertCell(1);
+          var cell2 = row.insertCell(2);
+          var cell3 = row.insertCell(3);
+          var cell4 = row.insertCell(4);
+          var cell5 = row.insertCell(5);
+          var cell6 = row.insertCell(6);
+          var cell7 = row.insertCell(7);
+          var cell8 = row.insertCell(8);
+          var cell9 = row.insertCell(9);
+          
 
-					cell0.innerHTML = members_obj[i].userid;
-					cell1.innerHTML = members_obj[i].name;
-					cell2.innerHTML = members_obj[i].email;
-					cell3.innerHTML = members_obj[i].user_type;
-					cell4.innerHTML = members_obj[i].icNo;
-					cell5.innerHTML = members_obj[i].dob;
-					cell6.innerHTML = members_obj[i].phoneNo;
-					cell7.innerHTML = members_obj[i].maritalStat;
-					cell8.innerHTML = members_obj[i].gender;
-					cell9.innerHTML = members_obj[i].mosqueName;
-				}
-			}
-			document.getElementById('customers').appendChild(table);
-		};
-		request.send();
-	}
+          cell0.innerHTML = members_obj[i].userid;
+			cell1.innerHTML = members_obj[i].name;
+			cell2.innerHTML = members_obj[i].email;
+			cell3.innerHTML = members_obj[i].user_type;
+			cell4.innerHTML = members_obj[i].icNo;
+			cell5.innerHTML = (members_obj[i].dob).slice(0,10);
+			cell6.innerHTML = members_obj[i].phoneNo;
+			cell7.innerHTML = members_obj[i].maritalStat;
+			cell8.innerHTML = members_obj[i].gender;
+			cell9.innerHTML = members_obj[i].mosqueName;
+        }
+      }
+      document.getElementById('customers').appendChild(table);
+    };
+    request.send();
+  }
 </script>
 </head>
 <body id="page-top">
@@ -132,7 +134,7 @@ String sesName = (String)session.getAttribute("sessionName");
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="AdminController?action=admindashboard"> <i class="small material-icons">account_circle</i>
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>"> <i class="small material-icons">account_circle</i>
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>
@@ -145,7 +147,7 @@ String sesName = (String)session.getAttribute("sessionName");
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link"
-				href="AdminController?action=admindashboard"> <i
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Admin Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item active">
 			<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages"aria-expanded="true" aria-controls="collapsePages"> 
@@ -212,11 +214,13 @@ String sesName = (String)session.getAttribute("sessionName");
 				</nav>
 				<!-- End of Topbar -->
 				<div class="container">
-					<h1 align="center">USERS LIST</h1><br><br>
+					<h1 align="center">ACTIVE KARIAH LIST</h1>
+					<br>
+					<br>
 
-					
 					<!-- display active kariah table -->
 					<div id="customers"></div>
+				</div>
 
 					<!-- Logout Modal-->
 					<div class="modal fade" id="logoutModal" tabindex="-1"
@@ -242,8 +246,11 @@ String sesName = (String)session.getAttribute("sessionName");
 							</div>
 						</div>
 					</div>
+				</div>
+				</div>
+				</div>
 
-					<!-- Bootstrap core JavaScript-->
+				<!-- Bootstrap core JavaScript-->
 					<script src="vendor/jquery/jquery.min.js"></script>
 					<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

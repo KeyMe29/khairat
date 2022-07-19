@@ -35,7 +35,7 @@ public class StaffDAO {
 
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		
@@ -61,7 +61,7 @@ public class StaffDAO {
 				st.setPosition(rs.getString("admin_position"));
 			}
 			//5. close connection
-			con.close();
+			//con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		
@@ -73,7 +73,7 @@ public class StaffDAO {
 	//update staff
 	public void updateStaff(Staff bean) {
 
-		staffid = bean.getUserid();
+		staffid = bean.getStaffid();
 		position = bean.getPosition();
 
 		try {

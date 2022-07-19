@@ -194,7 +194,6 @@ body {
 						<div class="col-md-3">
 								<label class="labels">REFERENCE ID</label><input type="number"
 									class="form-control" name="refid" required>
-							</div>
 						</br> <input class="btn btn-primary" type="submit"
 							value="SUBMIT"">
 					</form>

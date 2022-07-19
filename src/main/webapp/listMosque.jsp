@@ -177,9 +177,6 @@ String sesName = (String)session.getAttribute("sessionName");
 								<td><a
 									href="MosqueController?action=viewMosque&mosqueId=<c:out value="${mosque.mosqueId}" />"
 									class="btn btn-warning">VIEW</a></td>
-								<td><a
-									href="MosqueController?action=updateMosque&mosqueId=<c:out value="${mosque.mosqueId}" />"
-									class="btn btn-primary">UPDATE</a></td>
 								<td><input type="hidden" id="mosqueid-${mosques.index}"
 									value="<c:out value="${mosque.mosqueId}"/>">
 								<button class="btn btn-danger"

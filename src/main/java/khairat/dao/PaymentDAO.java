@@ -31,21 +31,21 @@ public class PaymentDAO {
 		userid = bean.getUserid();
 		method = bean.getMethod();
 		refid = bean.getRefid();
-		paymentstatus = bean.getPayStatus();
-		//Date dt = Date.valueOf(payDate);
+		payDate = bean.getPayDate();
+		Date dt = Date.valueOf(payDate);
 		
 		try {
 			//call getConnection() method from ConnectionManager class
 			con = ConnectionManager.getConnection();
 			
 			//3. create statement
-			String sql = "INSERT INTO payment(bid,method,refid,userid)VALUES(?,?,?,?)";
+			String sql = "INSERT INTO payment(bid,method,refid,userid,payDate)VALUES(?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, bid);
 			ps.setString(2, method);
 			ps.setString(3, refid);
 			ps.setInt(4, userid);
-			//ps.setDate(5,dt);
+			ps.setDate(5,dt);
 			
 			//4. execute query
 			ps.executeUpdate();
@@ -84,7 +84,7 @@ public class PaymentDAO {
 				payment.setMethod(rs.getString("method"));
 				payment.setRefid(rs.getString("refid"));
 				payment.setPayStatus(rs.getString("payStatus"));
-				//payment.setPayDate((rs.getDate("payDate")).toLocalDate());
+				payment.setPayDate((rs.getDate("payDate")).toLocalDate());
 			}
 			
 			//5. close connection
@@ -119,7 +119,7 @@ public class PaymentDAO {
 				payment.setUserid(rs.getInt("userid"));
 				payment.setKariah(KariahDAO.getKariahById(rs.getInt("userid")));
 				payment.setPayStatus(rs.getString("payStatus"));
-				//payment.setPayDate((rs.getDate("payDate")).toLocalDate());
+				payment.setPayDate((rs.getDate("payDate")).toLocalDate());
 				
 				payments.add(payment);		
 			}
@@ -156,7 +156,7 @@ public class PaymentDAO {
 				payment.setUserid(rs.getInt("userid"));
 				payment.setUser(UserDAO.getUserById(rs.getInt("userid")));
 				payment.setPayStatus(rs.getString("payStatus"));
-				//payment.setPayDate((rs.getDate("payDate")).toLocalDate());
+				payment.setPayDate((rs.getDate("payDate")).toLocalDate());
 				
 				payments.add(payment);
 			}
@@ -173,17 +173,18 @@ public class PaymentDAO {
 		bid = bean.getBid();
 		userid = bean.getUserid();
 		paymentstatus = bean.getPayStatus();
+		System.out.println("paydao update paystatus:" + paymentstatus);
 		
 		try {
 			//call getConnection() method from ConnectionManager class
 			con = ConnectionManager.getConnection();
 			
 			//3. create statement
-			String sql = "UPDATE payment SET userid=?, payStatus=? WHERE bid=?";
+			String sql = "UPDATE payment set payStatus=? WHERE bid=? and userid=?";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, userid);
-			ps.setString(2, paymentstatus);
-			ps.setInt(3, bid);
+			ps.setString(1, paymentstatus);
+			ps.setInt(2, bid);
+			ps.setInt(3, userid);
 			
 			//4. execute query
 			ps.executeUpdate();

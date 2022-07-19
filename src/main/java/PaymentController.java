@@ -1,4 +1,4 @@
-package khairat.controller;
+
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.*;
 
 import khairat.dao.PaymentDAO;
 import khairat.dao.UserDAO;
@@ -109,6 +110,7 @@ public class PaymentController extends HttpServlet {
 			payment.setBid(bId);
 			payment.setUserid(uId);
 			payment.setPayStatus(trimpaymentstatus);
+			System.out.println("dopost paystatus:" + payment.getPayStatus());
 			dao.updatePayment(payment);
 			
 			
@@ -136,21 +138,25 @@ public class PaymentController extends HttpServlet {
 			payment.setMethod(request.getParameter("method"));
 			payment.setRefid(request.getParameter("refid"));
 			payment.setUserid(Integer.parseInt(request.getParameter("userid")));
-			//payment.setPayDate(java.time.LocalDate.now());
+			payment.setPayStatus(request.getParameter("payStatus"));
+			
+			payment.setPayDate(java.time.LocalDate.now());
 			
 			String type = request.getParameter("type");
 			
 			if(type.equalsIgnoreCase("add")) {
 				dao.addPayment(payment); 
+				request.setAttribute("payments", PaymentDAO.getUserPayment(payment.getUserid()));
+				forward = "listPayment.jsp";
 			}
-			else {
+			/*else {
 				payment.setUserid(Integer.parseInt(request.getParameter("userid")));
 				dao.updatePayment(payment);
-			}
+				request.setAttribute("kariah", KariahDAO.getKariahById(payment.getUserid()));
+				forward = "listAllPayment.jsp";
+			}*/
 			
-			request.setAttribute("payments", PaymentDAO.getUserPayment(payment.getUserid()));
-			request.setAttribute("kariah", KariahDAO.getKariahById(payment.getUserid()));
-			view = request.getRequestDispatcher("listPayment.jsp");
+			view = request.getRequestDispatcher(forward);
 			view.forward(request, response);
 	}
 

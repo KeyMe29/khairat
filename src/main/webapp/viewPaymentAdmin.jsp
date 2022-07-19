@@ -14,6 +14,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 
@@ -175,14 +176,38 @@ String sesName = (String)session.getAttribute("sessionName");
 						<td><c:out value="${payment.method}" /></td>
 					</tr>
 					<tr>
+						<th>PAYMENT METHOD</th>
+						<td><c:out value="${payment.payDate}" /></td>
+					</tr>
+					<tr>
 						<th>REFERENCE ID</th>
 						<td><c:out value="${payment.refid}" /></td>
 					</tr>
 				</table>
 				<br>
 				<center>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="APPROVE" />" class="btn btn-primary">APPROVE</a>
-					<a href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=<c:out value="REJECT" />" class="btn btn-danger">REJECT</a>
+				<c:choose>
+						<c:when test="${fn:contains(payment.payStatus, 'A') }">
+						<a
+								href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=REJECTED"
+								class="btn btn-danger">REJECT</a>
+						</c:when>
+						<c:when test="${fn:contains(payment.payStatus, 'G') }">
+							
+							<a
+								href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=APPROVED"
+								class="btn btn-primary">APPROVE</a>
+							<a
+								href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=REJECTED"
+								class="btn btn-danger">REJECT</a>
+						</c:when>
+						<c:when test="${fn:contains(payment.payStatus, 'C') }">
+							<a
+								href="PaymentController?action=updatePayment&bid=<c:out value="${bill.bid}" />&userid=<c:out value="${user.userid}" />&payStatus=APPROVED"
+								class="btn btn-danger">RE-APPROVE</a>
+						</c:when>
+					</c:choose>
+				
 				</center>
 				
 				<!-- Logout Modal-->

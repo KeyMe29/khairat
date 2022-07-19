@@ -181,6 +181,7 @@ String sesName = (String)session.getAttribute("sessionName");
 							</tr>
 						</c:forEach>
 					</table>
+					</div>
 
 					<!-- Logout Modal-->
 					<div class="modal fade" id="logoutModal" tabindex="-1"
@@ -205,6 +206,9 @@ String sesName = (String)session.getAttribute("sessionName");
 								</div>
 							</div>
 						</div>
+					</div>
+					</div>
+					</div>
 					</div>
 
 					<!-- Bootstrap core JavaScript-->

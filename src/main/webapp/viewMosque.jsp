@@ -162,7 +162,7 @@ String sesName = (String)session.getAttribute("sessionName");
 
 				<h1 align="center">MOSQUE DETAILS</h1>
 				<br>
-
+				<div class="container">
 				<table id="customers" align="center">
 					<form action="MosqueController" method="post">
 					<tr>
@@ -198,17 +198,16 @@ String sesName = (String)session.getAttribute("sessionName");
 							</select></td>
 						</tr>
 						<tr>
-								<td rowspan="2">
-                                 <input type="submit" name="submit" value="Update" class="btn btn-primary btn-user">
-                           	</td>
-					</tr>
-					<tr>
-						<th>ADDRESS</th>
-						<td><input type="text" class="form-control" readonly id="mosqueAddress" name="mosqueAddress"
-									value="<c:out value="${mosque.superv.mosqueAddress}"/>"></td>
-					</tr>
+							<th>ADDRESS</th>
+							<td><input type="text" class="form-control" readonly id="mosqueAddress" name="mosqueAddress"
+								value="<c:out value="${mosque.superv.mosqueAddress}"/>"></td>
+						</tr>
+						<tr>
+							<td rowspan="2"><input type="submit" name="submit" value="Update" class="btn btn-primary btn-user"></td>
+						</tr>
 					</form>
 				</table>
+				</div>
 
 				<!-- Logout Modal-->
 				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"

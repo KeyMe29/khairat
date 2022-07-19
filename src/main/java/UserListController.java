@@ -1,4 +1,4 @@
-package khairat.controller;
+
 
 import java.io.IOException;
 
@@ -126,14 +126,19 @@ public class UserListController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 			User user = new User();
+			Kariah kariah = new Kariah();
 			user.setActiveStatus(Boolean.parseBoolean(request.getParameter("activeStatus")));
 			user.setUserid(Integer.parseInt(request.getParameter("userid")));
-			System.out.println(user);
+			kariah.setUserid(Integer.parseInt(request.getParameter("userid")));
+			String deathdate = request.getParameter("userDeathDate");
+			kariah.setUserDeathDate(request.getParameter("userDeathDate"));
+			System.out.println("kariah deathdate:" + deathdate);
 			
 			System.out.println(user.isActiveStatus());
 			System.out.println(user.getUserid());
 			
 			UserDAO.updateActiveStatus(user);
+			KariahDAO.updateDeathDate(kariah);
 			
 			request.setAttribute("user", UserDAO.getUserById(user.getUserid()));
 			request.setAttribute("kariah", KariahDAO.getKariahById(user.getUserid()));

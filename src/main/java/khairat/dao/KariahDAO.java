@@ -80,7 +80,7 @@ public class KariahDAO {
 		return kariah;
 	}
 	
-	public void updateKariah(Kariah bean) {
+	public static void updateKariah(Kariah bean) {
 
 		id = bean.getUserid();
 		address = bean.getAddress();
@@ -111,7 +111,7 @@ public class KariahDAO {
 		}
 	}
 	
-	public void updateDeathDate(Kariah bean) {
+	public static void updateDeathDate(Kariah bean) {
 
 		id = bean.getUserid();
 		userDeathDate = bean.getUserDeathDate();	

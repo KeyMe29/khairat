@@ -19,6 +19,7 @@ String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <html>
 
 <head>
@@ -154,6 +155,156 @@ String sesName = (String)session.getAttribute("sessionName");
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
+				<div class="container-fluid">
+                    <div class="row">
+                	<div class="col"><h1 class="h3 mb-2 text-gray-800">Payment Details</h1></div>
+                	<!-- <div class="col text-right"><a href="#" class="btn btn-success btn-icon-split">
+							<span class="icon text-white-50"> 
+								<i class="fas fa-check"></i>
+							</span> <span class="text">Split Button Success</span>
+							</a></div>-->
+                </div>
+                    <div class="card shadow mb-4">
+						<!-- Card Header - Accordion -->
+						<a href="#collapseCard1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true"
+							aria-controls="collapseCard1">
+							<h6 class="m-0 font-weight-bold text-primary">Pending Approval</h6>
+						</a>
+						<!-- Card Content - Collapse -->
+						<div class="collapse show" id="collapseCard1">
+							<div class="card-body">
+								<form action="" >
+								<div class="table-responsive">
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<th>USER ID</th>
+												<th>METHOD</th>
+												<th>PAYMENT DATE</th>
+												<th>PAYMENT STATUS</th>
+												<th colspan="3">ACTIONS</th>
+											</tr>
+										</thead>
+											<c:forEach items="${payments}" var="payment"
+												varStatus="payments">
+												<c:if test="${fn:contains(payment.payStatus, 'G') }">
+													<!-- display pending only -->
+													<tr>
+														<td><c:out value="${payment.userid}" /></td>
+														<td><c:out value="${payment.method}" /></td>
+														<td><c:out value="${payment.payDate}" /></td>
+														<td><c:out value="${payment.payStatus}" /></td>
+														<td><a
+															href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
+															class="btn btn-info btn-icon-split"> <span
+																class="icon text-white-50"> <i
+																	class="fas fa-info-circle"></i>
+															</span> <span class="text">VIEW PAYMENT DETAILS</span>
+														</a></td>
+													</tr>
+												</c:if>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+					<div class="card shadow mb-4">
+						<!-- Card Header - Accordion -->
+						<a href="#collapseCard2" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true"
+							aria-controls="collapseCard2">
+							<h6 class="m-0 font-weight-bold text-primary">Approved Payment</h6>
+							<!-- display approved only -->
+						</a>
+						<!-- Card Content - Collapse -->
+						<div class="collapse show" id="collapseCard2">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<th>USER ID</th>
+												<th>METHOD</th>
+												<th>PAYMENT DATE</th>
+												<th>PAYMENT STATUS</th>
+												<th colspan="3">ACTIONS</th>
+											</tr>
+										</thead>
+											<c:forEach items="${payments}" var="payment"
+												varStatus="payments">
+												<c:if test="${fn:contains(payment.payStatus, 'A') }">
+													<!-- display approved only -->
+													<tr>
+														<td><c:out value="${payment.userid}" /></td>
+														<td><c:out value="${payment.method}" /></td>
+														<td><c:out value="${payment.payDate}" /></td>
+														<td><c:out value="${payment.payStatus}" /></td>
+														<td><a
+															href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
+															class="btn btn-info btn-icon-split"> <span
+																class="icon text-white-50"> <i
+																	class="fas fa-info-circle"></i>
+															</span> <span class="text">VIEW PAYMENT DETAILS</span>
+														</a></td>
+													</tr>
+												</c:if>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card shadow mb-4">
+						<!-- Card Header - Accordion -->
+						<a href="#collapseCard3" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true"
+							aria-controls="collapseCard3">
+							<h6 class="m-0 font-weight-bold text-primary">Rejected Payment Proof</h6>
+						</a>
+						<!-- Card Content - Collapse -->
+						<div class="collapse show" id="collapseCard3">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+										<thead>
+											<tr>
+												<th>USER ID</th>
+												<th>METHOD</th>
+												<th>PAYMENT DATE</th>
+												<th>PAYMENT STATUS</th>
+												<th colspan="3">ACTIONS</th>
+											</tr>
+										</thead>
+											<c:forEach items="${payments}" var="payment"
+												varStatus="payments">
+												<c:if test="${fn:contains(payment.payStatus, 'C') }">
+													<!-- display approved only -->
+													<tr>
+														<td><c:out value="${payment.userid}" /></td>
+														<td><c:out value="${payment.method}" /></td>
+														<td><c:out value="${payment.payDate}" /></td>
+														<td><c:out value="${payment.payStatus}" /></td>
+														<td><a
+															href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
+															class="btn btn-info btn-icon-split"> <span
+																class="icon text-white-50"> <i
+																	class="fas fa-info-circle"></i>
+															</span> <span class="text">VIEW PAYMENT DETAILS</span>
+														</a></td>
+													</tr>
+												</c:if>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+                   </div>
+                <!-- /.container-fluid -->
 				<div class="container">
 					<h1 align="center">PAYMENT LIST</h1><br><br>
 
@@ -165,6 +316,7 @@ String sesName = (String)session.getAttribute("sessionName");
 							<th colspan="3">ACTIONS</th>
 						</tr>
 						<c:forEach items="${payments}" var="payment" varStatus="payments">
+						<c:if test="${fn:contains(payment.payStatus, 'A') }"> <!-- display approved only -->
 							<tr>
 								<td><c:out value="${payment.userid}" /></td>
 								<td><c:out value="${payment.method}" /></td>
@@ -172,8 +324,32 @@ String sesName = (String)session.getAttribute("sessionName");
 								<td><a
 									href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
 									class="btn btn-warning">VIEW PAYMENT DETAILS</a></td>
+							</tr>
+						</c:if>
+						</c:forEach>
+					</table><br><br>
+					
+					<table id="customers">
+						<tr>
+							<th>USER ID</th>
+							<th>METHOD</th>
+							<th>PAYMENT STATUS</th>
+							<th colspan="3">ACTIONS</th>
+						</tr>
+						<c:forEach items="${payments}" var="payment" varStatus="payments">
+						<c:if test="${fn:contains(payment.payStatus, 'P') }"> <!-- display approved only -->
+							<tr>
+								<td><c:out value="${payment.userid}" /></td>
+								<td><c:out value="${payment.method}" /></td>
+								<td><c:out value="${payment.payStatus}" /></td>
+								<td><a
+									href="PaymentController?action=viewPayment&userid=<c:out value="${payment.userid}" />&bid=<c:out value="${payment.bid}" />"
+									class="btn btn-warning">VIEW PAYMENT DETAILS</a></td>
+							</tr>
+						</c:if>
 						</c:forEach>
 					</table>
+					
 
 					<!-- Logout Modal-->
 					<div class="modal fade" id="logoutModal" tabindex="-1"

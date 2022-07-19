@@ -9,6 +9,11 @@ response.setDateHeader("Expires", 0);
 if (session.getAttribute("sessionEmail") == null)
 	response.sendRedirect("/khairat/login.jsp");
 
+if(session.getAttribute("sessionRole") != null){
+	String sesRol = (String)session.getAttribute("sessionRole");
+	if (sesRol.equalsIgnoreCase("kariah"))
+		response.sendRedirect("/khairat/login.jsp");
+}
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
@@ -71,7 +76,7 @@ String sesName = (String)session.getAttribute("sessionName");
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="KariahController?action=homepage&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>
@@ -184,7 +189,7 @@ String sesName = (String)session.getAttribute("sessionName");
 							<tr>
 								<th>User Death Date</th>
 								<td><div class="col-md-12">
-								<input type="date" class="form-control" name="date">
+								<input type="date" class="form-control" name="userDeathDate" value="<c:out value="${kariah.userDeathDate}"/>" >
 							</div></td>
 							</tr>
 							<tr>
@@ -193,8 +198,8 @@ String sesName = (String)session.getAttribute("sessionName");
 								<div>
 									<select name="activeStatus" id="activeStatus" class="round3">
 										<option value="<c:out value="${kariah.user.activeStatusNo}" />"><c:out value="${user.activeStatusName}" /></option>
-										<option value="0">Inactive</option>
-										<option value="1">Active</option>
+										<option value="false">Inactive</option>
+										<option value="true">Active</option>
 									</select>
                                  </div>
                                  </td>
