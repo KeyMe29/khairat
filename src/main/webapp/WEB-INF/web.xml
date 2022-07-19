@@ -15,7 +15,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>User List</servlet-name>
-  	<url-pattern>User List</url-pattern>
+  	<url-pattern>/User List</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Login</servlet-name>
@@ -23,7 +23,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Login</servlet-name>
-  	<url-pattern>Login</url-pattern>
+  	<url-pattern>/Login</url-pattern>
   </servlet-mapping>
    <servlet>
 	<servlet-name>Logout</servlet-name>
@@ -31,7 +31,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Logout</servlet-name>
-  	<url-pattern>Logout</url-pattern>
+  	<url-pattern>/Logout</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Register User</servlet-name>
@@ -39,7 +39,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Register User</servlet-name>
-  	<url-pattern>Register User</url-pattern>
+  	<url-pattern>/Register User</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Register Admin</servlet-name>
@@ -47,7 +47,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Register Admin</servlet-name>
-  	<url-pattern>Register Admin</url-pattern>
+  	<url-pattern>/Register Admin</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Kariah</servlet-name>
@@ -55,7 +55,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Kariah</servlet-name>
-  	<url-pattern>Kariah</url-pattern>
+  	<url-pattern>/Kariah</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Admin</servlet-name>
@@ -63,7 +63,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Admin</servlet-name>
-  	<url-pattern>Admin</url-pattern>
+  	<url-pattern>/Admin</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Dependent</servlet-name>
@@ -71,7 +71,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Dependent</servlet-name>
-  	<url-pattern>Dependent</url-pattern>
+  	<url-pattern>/Dependent</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Bill</servlet-name>
@@ -79,7 +79,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Bill</servlet-name>
-  	<url-pattern>Bill</url-pattern>
+  	<url-pattern>/Bill</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Payment</servlet-name>
@@ -87,7 +87,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Payment</servlet-name>
-  	<url-pattern>Payment</url-pattern>
+  	<url-pattern>/Payment</url-pattern>
   </servlet-mapping>
   <servlet>
 	<servlet-name>Mosque</servlet-name>
@@ -95,7 +95,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>Mosque</servlet-name>
-  	<url-pattern>Mosque</url-pattern>
+  	<url-pattern>/Mosque</url-pattern>
   </servlet-mapping>
   
 </web-app>
