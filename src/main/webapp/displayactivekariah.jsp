@@ -134,7 +134,11 @@ window.onload = function () {
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
+<<<<<<< HEAD
 				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
+=======
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>"> <i class="small material-icons">account_circle</i>
+>>>>>>> parent of 3fd23b3 (Initialized)
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>

@@ -12,9 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 public class ConnectionManager {
 	static Connection con;
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+<<<<<<< HEAD
 	private static final String DB_CONNECTION = "jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_a23d7145f219ef1?reconnect=true";   // //jdbc:mysql://localhost/khairat-test
 	private static final String DB_USER = "bafb594aaeadfb";    //root
 	private static final String DB_PASSWORD = "c24bd303";   
+=======
+	private static final String DB_CONNECTION = "jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_a23d7145f219ef1";  //jdbc:mysql://localhost/khairat-test
+	private static final String DB_USER = "bafb594aaeadfb";  //root
+	private static final String DB_PASSWORD = "c24bd303";
+>>>>>>> parent of 3fd23b3 (Initialized)
 	
 	public static Connection getConnection() { 
 		try {
