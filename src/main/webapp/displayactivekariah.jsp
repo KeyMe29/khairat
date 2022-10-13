@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%--
+<%
 response.addHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 response.addHeader("Cache-Control", "pre-check=0, post-check=0");
@@ -17,7 +17,7 @@ if(session.getAttribute("sessionRole") != null){
 int sessionId = (Integer)session.getAttribute("sessionId");
 String sesEmail = (String)session.getAttribute("sessionEmail");
 String sesName = (String)session.getAttribute("sessionName");
---%>
+%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -134,7 +134,7 @@ window.onload = function () {
 				rel="stylesheet">
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="AdminController?action=admindashboard"> <i class="small material-icons">account_circle</i>
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i class="small material-icons">account_circle</i>
 				<div class="sidebar-brand-text mx-3">KARIAH & DEATH
 					BENEFICIARY</div>
 			</a>
@@ -147,7 +147,7 @@ window.onload = function () {
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link"
-				href="AdminController?action=admindashboard"> <i
+				href="AdminController?action=admindashboard&userid=<%= sessionId %>&email=<%= sesEmail %>"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>Admin Dashboard</span></a> <!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item active">
 			<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages"aria-expanded="true" aria-controls="collapsePages"> 
@@ -159,6 +159,8 @@ window.onload = function () {
 					<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
 					<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
 						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
+						<a class="collapse-item" href="ReportController">Report Analysis</a>
+						
 					</div>
 				</div></li>
 

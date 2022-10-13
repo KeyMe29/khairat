@@ -105,6 +105,7 @@ String sesName = (String)session.getAttribute("sessionName");
 						<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a> 
 						<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
 						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
+						<a class="collapse-item" href="ReportController">Report Analysis</a>
 					</div>
 				</div></li>
 
@@ -112,6 +113,9 @@ String sesName = (String)session.getAttribute("sessionName");
 			<li class="nav-item"><a class="nav-link"
 				href="UserListController"> <i class="fas fa-fw fa-table"></i> <span>User
 						List</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="UserListController?action=displayactivekariah">
+					<i class="fas fa-fw fa-table"></i> <span>Active Kariah List</span>
 			</a></li>
 		</ul>
 		<!-- End of Sidebar -->

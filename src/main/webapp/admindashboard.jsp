@@ -103,6 +103,7 @@ int sessionId = (Integer)session.getAttribute("sessionId");
 						<a class="collapse-item" href="PaymentController?action=listAllPayment">Payment List</a>
 						<a class="collapse-item" href="MosqueController?action=listMosque">Mosque List</a>
 						<a class="collapse-item" href="AdminRegisterController">Register Admin</a>
+						<a class="collapse-item" href="ReportController">Report Analysis</a>
 					</div>
 				</div></li>
 

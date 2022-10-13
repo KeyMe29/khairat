@@ -54,7 +54,6 @@
                                             </div>
                                         </div>-->
                                         <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
-                                        <hr>
                                     </form>
                                     <hr>
                                     <div class="text-center">
